@@ -21,4 +21,4 @@ class Personagem(db.Model):
     idade = db.Column(db.Integer)
     altura = db.Column(db.Float)
     peso = db.Column(db.Float)
-    genero = 
+    genero = db.Column(db.
