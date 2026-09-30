@@ -16,3 +16,7 @@ def login():
 @app.route("/cadastro")
 def cadastro():
     return "Cadastro feito"
+
+@app.route("/teste")
+def teste():
+    return render_template('teste.html')
