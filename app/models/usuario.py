@@ -12,5 +12,6 @@ class Usuario(db.Model):
                       index=True,
                       unique=True,
                       nullable=False)
+    
     personagens = db.relationship('Personagem',
-                                  back_populates='id_usuario')
+                                  back_populates='jogador')
