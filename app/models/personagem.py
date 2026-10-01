@@ -3,12 +3,20 @@ from app import db
 class Personagem(db.Model):
     id = db.Column(db.Integer,
                    primary_key=True)
-    id_usuario = db.Column(db.)
-    id_classe = db.Column(db.)
-    id_deus = db.Column(db.)
-    id_raca = db.Column(db.)
-    id_oficio = db.Column(db.)
-    id_alinhamento = db.Column(db.)
+    id_usuario = db.Column(db.Integer,
+                           db.ForeignKey('usuario.id'),
+                           nullable=False)
+    id_classe = db.Column(db.Integer,
+                          db.ForeignKey('classe.id'))
+    id_deus = db.Column(db.Integer,
+                        db.ForeignKey('deus.id'))
+    id_raca = db.Column(db.Integer,
+                        db.ForeignKey('raca.id'))
+    id_oficio = db.Column(db.Integer,
+                          db.ForeignKey('oficio.id'))
+    id_alinhamento = db.Column(db.Integer,
+                               db.ForeignKey('alinhamento.id'),
+                               nullable=False)
     nome = db.Column(db.String(65))
     alcunha = db.Column(db.String(65))
     nivel = db.Column(db.Integer)
@@ -32,3 +40,8 @@ class Personagem(db.Model):
     ligacoes = db.Column(db.Text)
     defeitos = db.Column(db.Text)
     dinheiro = db.Column(db.Int)
+
+    jogador = db.relationship('Usuario',
+                              back_populates='personagens')
+    classe = db.relationship('Classe',
+                             back_populates='personagens')
