@@ -1733,3 +1733,11 @@ body {
     width: 16%;
   }
 }
+
+.login-box .form-label {
+    color: white;
+}
+
+.login-box .form-check-label {
+    color: white;
+}
