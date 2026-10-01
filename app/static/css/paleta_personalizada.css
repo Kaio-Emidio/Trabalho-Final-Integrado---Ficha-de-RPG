@@ -1,0 +1,331 @@
+/* ===================================================
+   1. PALETA DE CORES E VARIÁVEIS BASE
+   =================================================== */
+:root {
+  --color-verde: #1C4E59;     /* Fundo dos cards e elementos principais */
+  --color-dourado: #C49A45;   /* Bordas, ícones, destaques e links */
+  --color-bege: #F9F6EE;      /* Fundo da página e texto em cards */
+  --color-grafite: #22282A;   /* Texto escuro */
+  --color-vermelho: #A04033;  /* Botões principais e erros */
+  --color-branco: #FFFFFF;    /* Container central da página */
+
+  --bs-body-bg: var(--color-bege);
+  --bs-body-color: var(--color-grafite);
+}
+
+/* ===================================================
+   2. BASES GERAIS E ESPAÇAMENTOS
+   =================================================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-branco) !important;
+  color: var(--color-grafite);
+  font-family: 'Alegreya', serif;
+}
+
+em {
+  font-style: normal !important; 
+  color: var(--color-dourado) !important;
+}
+
+h1, h2, h3 {
+  font-family: 'Cinzel Decorative', serif !important;
+  color: var(--color-branco) !important;
+  font-weight: 700 !important;
+}
+
+h4, h5, h6 {
+  font-family: 'Cinzel', serif;
+  color: var(--color-branco) !important;
+  font-weight: 600;
+}
+
+/* Estrutura central da página com alinhamento superior justo */
+.page-content {
+  background-color: var(--color-bege) !important;
+  border: 2px solid var(--color-verde) !important;
+  border-radius: 20px;
+  padding: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 18px rgba(28, 78, 89, 0.06);
+}
+
+/* ===================================================
+   3. CABEÇALHO E MENSAGENS (nav_2.html / base.html)
+   =================================================== */
+.header-area {
+  top: 0;
+  margin: 0;
+  background-color: var(--color-verde);
+  border-bottom: 3px solid var(--color-dourado);
+  height: auto !important;
+}
+
+button.navbar-toggler {
+  border: none !important;
+  background: transparent !important;
+}
+
+.site-title {
+  font-family: 'Uncial Antiqua', serif;
+  color: var(--color-dourado);
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.site-title img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navbar-nav .nav-link {
+  font-family: 'Cinzel', serif;
+  color: var(--color-bege);
+  font-weight: 600;
+  padding: 6px 14px;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: var(--color-dourado);
+}
+
+.navbar-nav .nav-item:last-child .nav-link {
+  background-color: var(--color-dourado);
+  color: var(--color-verde);
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 6px 18px;
+}
+
+.nav-item:last-child .nav-link:hover {
+  background-color: var(--color-verde);
+  color: var(--color-dourado);
+  border: 1px solid var(--color-dourado);
+}
+
+/* ===================================================
+   4. CARDS DE JOGOS EM VERDE (index.html)
+   =================================================== */
+.main-banner {
+  background-color: var(--color-grafite);
+  border: 2px solid var(--color-verde);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 25px;
+}
+
+.most-popular,
+.gaming-library {
+  background-color: var(--color-grafite);
+  border: 2px solid var(--color-verde);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.heading-section h4 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 26px;
+  color: var(--color-verde);
+  margin-bottom: 20px;
+}
+
+/* Estilo unificado para todos os cards */
+.most-popular .item {
+  background-color: var(--color-verde);
+  border: 1px solid var(--color-dourado);
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 24px;
+  transition: transform 0.2s ease;
+}
+
+.most-popular .item:hover {
+  transform: translateY(-3px);
+}
+
+.most-popular .item img {
+  border-radius: 12px;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.most-popular .item h4 {
+  font-size: 1.05rem;
+  color: var(--color-bege);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.most-popular .item h4 span {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-dourado);
+  font-weight: 500;
+}
+
+.most-popular .item ul {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin-top: 8px;
+  margin-bottom: 0;
+  list-style: none;
+  font-size: 0.88rem;
+  color: var(--color-bege);
+}
+
+.most-popular .item ul li i {
+  color: var(--color-dourado);
+}
+
+/* Biblioteca de Jogos */
+.gaming-library .item {
+  background-color: var(--color-verde);
+  border: 1px solid var(--color-dourado);
+  border-radius: 15px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+}
+
+.gaming-library .item ul li h4 {
+  color: var(--color-bege);
+}
+
+.gaming-library .item ul li span {
+  color: var(--color-dourado);
+}
+
+/* ===================================================
+   5. FORMULÁRIOS DE LOGIN E CADASTRO
+   =================================================== */
+.login-box {
+  background-color: var(--color-verde);
+  border: 2px solid var(--color-dourado);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 14px rgba(28, 78, 89, 0.15);
+}
+
+.login-box h1,
+.login-box p {
+  color: var(--color-bege);
+}
+
+.form-label {
+  font-family: 'Cinzel', serif;
+  color: var(--color-bege);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  background-color: var(--color-bege);
+  border: 1px solid var(--color-dourado);
+  color: var(--color-grafite);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.form-control:focus {
+  border-color: var(--color-dourado);
+  box-shadow: 0 0 0 0.2rem rgba(196, 154, 69, 0.3);
+}
+
+/* Alinhamento flexível para o checkbox "Continuar Logado" */
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 0;
+}
+
+.form-check-input {
+  margin: 0;
+  width: 1.15em;
+  height: 1.15em;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: 1px solid var(--color-dourado);
+}
+
+.form-check-input:checked {
+  background-color: var(--color-dourado);
+  border-color: var(--color-dourado);
+}
+
+.form-check-label {
+  font-family: 'Cinzel', serif;
+  color: var(--color-bege);
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0;
+}
+
+.text-danger {
+  color: #FF8080;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ===================================================
+   6. BOTÕES DE AÇÃO E RODAPÉ
+   =================================================== */
+.main-button a,
+.btn-primary {
+  background-color: var(--color-vermelho);
+  border: 1px solid var(--color-vermelho);
+  color: var(--color-branco);
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 10px 26px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.main-button a:hover,
+.btn-primary:hover {
+  background-color: var(--color-dourado);
+  border-color: var(--color-dourado);
+  color: var(--color-verde);
+}
+
+.main-border-button a {
+  border: 1px solid var(--color-dourado);
+  color: var(--color-dourado);
+  font-family: 'Cinzel', serif;
+  border-radius: 25px;
+  padding: 8px 20px;
+  text-decoration: none;
+}
+
+.main-border-button a:hover {
+  background-color: var(--color-dourado);
+  color: var(--color-verde);
+}
+
+footer {
+  background-color: var(--color-verde);
+  border-top: 3px solid var(--color-dourado);
+  padding: 20px 0;
+  margin-top: 30px;
+  text-align: center;
+}
+
+footer p {
+  color: var(--color-bege);
+  margin: 0;
+}
+
+footer a {
+  color: var(--color-dourado);
+  text-decoration: none;
+  font-weight: 600;
+}

@@ -364,7 +364,6 @@ Header Style
 }
 
 .header-area .main-nav {
-  min-height: 80px;
   background: transparent;
   display: flex;
   padding: 15px 0px;
@@ -1643,7 +1642,7 @@ body {
 
 @media (max-width: 767px) {
   body .page-content {
-    padding: 0px 30px;
+    padding: 15px 30px;
   }
   .main-banner {
     text-align: center;
