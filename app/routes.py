@@ -29,7 +29,3 @@ def cadastro():
         "cadastro.html",
         form=form
     )
-
-@app.route("/teste")
-def teste():
-    return render_template('teste.html')
