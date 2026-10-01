@@ -1,0 +1,35 @@
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav navbar navbar-dark navbar-expand-lg">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="{{ url_for('home') }}" class="header-text d-flex align-items-center text-decoration-none site-title text-nowrap">
+                        <img src="{{ url_for('static', filename='img/logo_sem_bg_branco.png') }}" alt="Logo" class="me-2">
+                        <span class="text-nowrap site-title">A Linhagem Perdida</span>
+                    </a>
+                    <!-- ***** Logo End ***** -->
+
+                    <!-- ***** Botão Customizado (Apenas Mobile) ***** -->
+                    <button class="navbar-toggler menu-trigger ms-auto " type="button" data-bs-toggle="collapse" data-bs-target="#navMenuContent" aria-controls="navMenuContent" aria-expanded="false" aria-label="Alternar navegação" style="border: none; background: transparent;">
+                        <span>Menu</span>
+                    </button>
+
+                    <!-- ***** Menu Start ***** -->
+                    <div class="collapse navbar-collapse" id="navMenuContent">
+                        <ul class="navbar-nav ms-auto align-items-lg-center">
+                            <li class="nav-item"><a href="{{ url_for('home') }}" class="nav-link active">Home</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Browse</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">Details</a></li>
+                            <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+                            <li class="nav-item"><a href="{{ url_for('cadastro') }}" class="nav-link">Cadastro</a></li>
+                        </ul>
+                    </div>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ***** Header Area End ***** -->
