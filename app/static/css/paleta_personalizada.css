@@ -14,14 +14,15 @@
 }
 
 /* ===================================================
-   2. BASES GERAIS E ESPAÇAMENTOS
-   =================================================== */
+2. BASES GERAIS E ESPAÇAMENTOS
+=================================================== */
 html, body {
   margin: 0;
   padding: 0;
   background-color: var(--color-branco) !important;
   color: var(--color-grafite);
   font-family: 'Alegreya', serif;
+  min-height: 100vh;
 }
 
 em {
@@ -36,9 +37,9 @@ h1, h2, h3 {
 }
 
 h4, h5, h6 {
-  font-family: 'Cinzel', serif;
+  font-family: 'Cinzel', serif !important;
   color: var(--color-branco) !important;
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 /* Estrutura central da página com alinhamento superior justo */
@@ -99,12 +100,12 @@ button.navbar-toggler {
   font-weight: 700;
   border-radius: 20px;
   padding: 6px 18px;
+  margin-left: 5px;
 }
 
 .nav-item:last-child .nav-link:hover {
-  background-color: var(--color-verde);
-  color: var(--color-dourado);
-  border: 1px solid var(--color-dourado);
+  background-color: var(--color-vermelho);
+  color: var(--color-branco);
 }
 
 /* ===================================================
@@ -124,7 +125,7 @@ button.navbar-toggler {
   border: 2px solid var(--color-dourado);
   border-radius: 20px;
   padding: 25px;
-  margin-bottom: 25px;
+  margin-top: 0 !important;
 }
 
 .heading-section h4 {

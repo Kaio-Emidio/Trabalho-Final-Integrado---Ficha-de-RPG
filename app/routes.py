@@ -5,7 +5,9 @@ from app.forms.cadastro_form import CadastroForm
 
 @app.route("/")
 def home():
-    return render_template('index.html')
+    logado = False
+    return render_template('index.html',
+                           logado = logado)
 
 @app.route("/FichaPersonagem")
 def ficha_personagem():
