@@ -8,10 +8,10 @@ class Personagem(db.Model):
                            nullable=False)
     id_classe = db.Column(db.Integer,
                           db.ForeignKey('classe.id'))
-    id_deus = db.Column(db.Integer,
-                        db.ForeignKey('deus.id'))
     id_raca = db.Column(db.Integer,
                         db.ForeignKey('raca.id'))
+    id_deus = db.Column(db.Integer,
+                        db.ForeignKey('deus.id'))
     id_oficio = db.Column(db.Integer,
                           db.ForeignKey('oficio.id'))
     id_alinhamento = db.Column(db.Integer,
@@ -46,4 +46,6 @@ class Personagem(db.Model):
     classe = db.relationship('Classe',
                              back_populates='personagens')
     raca = db.relationship('Raca',
+                           back_populates='personagens')
+    deus = db.relationship('Deus',
                            back_populates='personagens')
