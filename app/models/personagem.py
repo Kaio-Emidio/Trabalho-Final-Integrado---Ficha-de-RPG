@@ -45,3 +45,5 @@ class Personagem(db.Model):
                               back_populates='personagens')
     classe = db.relationship('Classe',
                              back_populates='personagens')
+    raca = db.relationship('Raca',
+                           back_populates='personagens')
