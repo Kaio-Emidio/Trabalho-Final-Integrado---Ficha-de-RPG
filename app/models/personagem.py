@@ -49,6 +49,10 @@ class Personagem(db.Model):
                            back_populates='personagens')
     deus = db.relationship('Deus',
                            back_populates='personagens')
+    # oficio = db.relationship('Oficio',
+    #                          back_populates='personagens')
+    # alinhamento = db.relationship('Alinhamento',
+    #                                back_populates='personagens')
     atributos = db.relationship('Personagem_Atributo',
                                 cascade='all, delete-orphan',
                                 back_populates='personagem')
