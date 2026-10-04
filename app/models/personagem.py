@@ -35,11 +35,11 @@ class Personagem(db.Model):
     pele = db.Column(db.String(65))
     aura = db.Column(db.String(65))
     roupas = db.Column(db.Text)
-    tracos_personalidade = db.Column(db.Text)
-    ideais = db.Column(db.Text)
-    ligacoes = db.Column(db.Text)
-    defeitos = db.Column(db.Text)
-    dinheiro = db.Column(db.Int)
+    basinfo_tracos_personalidade = db.Column(db.Text)
+    basinfo_ideais = db.Column(db.Text)
+    basinfo_ligacoes = db.Column(db.Text)
+    basinfo_defeitos = db.Column(db.Text)
+    dinheiro = db.Column(db.Integer)
 
     jogador = db.relationship('Usuario',
                               back_populates='personagens')
@@ -67,9 +67,9 @@ class Personagem(db.Model):
     idiomas_e_outros = db.relationship('Idiomas_e_Outros',
                                         back_populates='personagens')
     talentos = db.relationship('Talento',
-                               back_populates='personagem')
+                               back_populates='personagens')
     defeitos = db.relationship('Defeito',
-                               back_populates='personagem')
+                               back_populates='personagens')
     contadores = db.relationship('Contador',
                                  back_populates='personagem')
     itens = db.relationship('Item',
