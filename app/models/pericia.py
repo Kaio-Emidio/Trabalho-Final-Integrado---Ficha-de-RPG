@@ -13,4 +13,6 @@ class Pericia(db.Model):
     atributo = db.relationship('Atributo',
                                cascade='all, delete-orphan',
                                back_populates='pericias')
-    
+    personagens = db.relationship('Personagem_Pericia',
+                                  cascade='all, delete-orphan',
+                                  back_populates='pericia')
