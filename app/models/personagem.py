@@ -68,3 +68,5 @@ class Personagem(db.Model):
                                         back_populates='personagens')
     talentos = db.relationship('Talento',
                                back_populates='personagem')
+    defeitos = db.relationship('Defeito',
+                               back_populates='personagem')
