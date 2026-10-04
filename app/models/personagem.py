@@ -61,3 +61,6 @@ class Personagem(db.Model):
                                back_populates='personagem')
     ferramentas_e_habilidades = db.relationship('Ferramentas_e_Habilidades',
                                                 back_populates='personagens')
+    magias = db.relationship('Personagem_Magia',
+                             cascade='all, delete-orphan',
+                             back_populates='personagem')
