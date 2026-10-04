@@ -64,3 +64,5 @@ class Personagem(db.Model):
     magias = db.relationship('Personagem_Magia',
                              cascade='all, delete-orphan',
                              back_populates='personagem')
+    idiomas_e_outros = db.relationship('Idiomas_e_Outros',
+                                        back_populates='personagens')
