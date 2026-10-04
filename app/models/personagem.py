@@ -72,3 +72,5 @@ class Personagem(db.Model):
                                back_populates='personagem')
     contadores = db.relationship('Contador',
                                  back_populates='personagem')
+    itens = db.relationship('Item',
+                            back_populates='personagem')
