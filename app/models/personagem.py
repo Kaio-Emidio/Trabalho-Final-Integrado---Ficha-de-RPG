@@ -59,3 +59,5 @@ class Personagem(db.Model):
     pericias = db.relationship('Personagem_Pericia',
                                cascade='all, delete-orphan',
                                back_populates='personagem')
+    ferramentas_e_habilidades = db.relationship('Ferramentas_e_Habilidades',
+                                                back_populates='personagens')
