@@ -66,3 +66,5 @@ class Personagem(db.Model):
                              back_populates='personagem')
     idiomas_e_outros = db.relationship('Idiomas_e_Outros',
                                         back_populates='personagens')
+    talentos = db.relationship('Talento',
+                               back_populates='personagem')
