@@ -38,6 +38,14 @@
                     {% endfor %}
                 </div>
 
+                <div>
+                    {{ form.password_conf.label(class_="form-label") }}
+                    {{ form.password(class_="form-control", placeholder="Confirme sua senha") }}
+                    {% for error in form.password.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
                 <div class="d-grid mt-4">
                     {{ form.submit(class_="btn btn-primary") }}
                 </div>

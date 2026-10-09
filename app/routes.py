@@ -5,22 +5,20 @@ from app.forms.cadastro_form import CadastroForm
 
 @app.route("/")
 def home():
-    logado = True
+    logado = False
     return render_template('index.html',
                            logado = logado)
 
 @app.route("/ficha/<id>")
 def ficha_personagem(id):
-    return "Aqui será a página onde fica a criação da ficha"
+    return render_template('ficha.html',
+                           nome = 'rogerinho')
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
-
-    return render_template(
-        "login.html",
-        form=form
-    )
+    return render_template("login.html", 
+                           form=form)
 
 @app.route('/logout')
 def logout():
@@ -28,10 +26,6 @@ def logout():
 
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
-
     form = CadastroForm()
-
-    return render_template(
-        "cadastro.html",
-        form=form
-    )
+    return render_template("cadastro.html", 
+                           form=form)
