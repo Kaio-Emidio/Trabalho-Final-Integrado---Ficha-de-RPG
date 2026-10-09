@@ -9,8 +9,8 @@ def home():
     return render_template('index.html',
                            logado = logado)
 
-@app.route("/FichaPersonagem")
-def ficha_personagem():
+@app.route("/ficha/<id>")
+def ficha_personagem(id):
     return "Aqui será a página onde fica a criação da ficha"
 
 @app.route("/login", methods=["GET", "POST"])
@@ -21,6 +21,10 @@ def login():
         "login.html",
         form=form
     )
+
+@app.route('/logout')
+def logout():
+    pass
 
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
