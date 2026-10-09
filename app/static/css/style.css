@@ -1,0 +1,468 @@
+/* ===================================================
+   1. PALETA DE CORES E VARIÁVEIS BASE
+   =================================================== */
+:root {
+  --color-verde: #1C4E59;     /* Fundo dos cards e elementos principais */
+  --color-dourado: #C49A45;   /* Bordas, ícones, destaques e links */
+  --color-bege: #F9F6EE;      /* Fundo da página e texto em cards */
+  --color-grafite: #22282A;   /* Texto escuro */
+  --color-vermelho: #A04033;  /* Botões principais e erros */
+  --color-branco: #FFFFFF;    /* Container central da página */
+
+  --bs-body-bg: var(--color-bege);
+  --bs-body-color: var(--color-grafite);
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
+@import url("https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700&family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&display=swap");
+
+/* ===================================================
+   2. RESET E ESTILOS GERAIS
+   =================================================== */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, figure, header, nav, section, article, aside, footer, figcaption {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-branco) !important;
+  color: var(--color-grafite);
+  font-family: 'Alegreya', serif;
+  font-weight: 400;
+  font-size: 16px;
+  min-height: 100vh;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul, li { list-style: none; }
+
+a {
+  color: var(--color-dourado);
+  text-decoration: none !important;
+}
+a:hover {
+  color: var(--color-vermelho);
+}
+
+em {
+  font-style: normal !important; 
+  color: var(--color-dourado) !important;
+}
+
+h1, h2, h3 {
+  font-family: 'Cinzel Decorative', serif !important;
+  color: var(--color-dourado) !important;
+  font-weight: 700 !important;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h4, h5, h6 {
+  font-family: 'Cinzel', serif !important;
+  color: var(--color-branco) !important;
+  font-weight: 600 !important;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+p {
+  font-size: 15px;
+  line-height: 30px;
+  color: var(--color-grafite);
+  margin-bottom: 0;
+}
+
+img {
+  width: 100%;
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-dourado);
+  color: var(--color-branco);
+}
+
+::-moz-selection {
+  background: var(--color-dourado);
+  color: var(--color-branco);
+}
+
+/* ===================================================
+   3. ESTRUTURA CENTRAL DA PÁGINA
+   =================================================== */
+body .page-content {
+  background-color: var(--color-bege) !important;
+  border: 2px solid var(--color-verde) !important;
+  border-radius: 20px;
+  padding: 30px;
+  margin-top: 110px;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 18px rgba(28, 78, 89, 0.06);
+}
+
+section { margin-top: 120px; }
+
+.heading-section h4 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 34px;
+  color: var(--color-verde);
+  margin-bottom: 30px;
+}
+
+.heading-section h4 em {
+  color: var(--color-dourado);
+  text-decoration: underline;
+}
+
+/* ===================================================
+   4. CABEÇALHO E NAVEGAÇÃO
+   =================================================== */
+.header-area {
+  top: 0;
+  margin: 0;
+  background-color: var(--color-verde);
+  border-bottom: 3px solid var(--color-dourado);
+  position: absolute;
+  height: auto !important;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all .5s ease 0s;
+}
+
+.background-header {
+  background-color: var(--color-verde) !important;
+  height: 70px !important;
+  position: fixed !important;
+  top: 0 !important;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.15) !important;
+}
+
+.header-area .main-nav {
+  display: flex;
+  padding: 15px 0px;
+}
+
+.header-area .main-nav .logo img { width: 191px; }
+
+.site-title {
+  font-family: 'Uncial Antiqua', serif;
+  color: var(--color-dourado);
+  font-size: 1.4rem;
+  text-decoration: none;
+}
+
+.site-title img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+}
+
+.header-area .main-nav .nav {
+  display: inline-flex;
+  flex-basis: 70%;
+  justify-content: flex-end;
+  vertical-align: middle;
+}
+
+.header-area .main-nav .nav li a {
+  font-family: 'Cinzel', serif;
+  color: var(--color-bege);
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 18px;
+  transition: all 0.3s ease;
+}
+
+.header-area .main-nav .nav li a:hover,
+.header-area .main-nav .nav li a.active {
+  color: var(--color-dourado) !important;
+}
+
+.header-area .main-nav .nav li:last-child a {
+  background-color: var(--color-dourado);
+  color: var(--color-verde) !important;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 6px 18px;
+  margin-left: 5px;
+}
+
+.header-area .main-nav .nav li:last-child a:hover {
+  background-color: var(--color-vermelho) !important;
+  color: var(--color-branco) !important;
+}
+
+/* ===================================================
+   5. BOTÕES DE AÇÃO
+   =================================================== */
+.main-button a,
+.btn-primary {
+  background-color: var(--color-vermelho);
+  border: 1px solid var(--color-vermelho);
+  color: var(--color-branco);
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 10px 26px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.main-button a:hover,
+.btn-primary:hover {
+  background-color: var(--color-dourado);
+  border-color: var(--color-dourado);
+  color: var(--color-verde);
+}
+
+.main-border-button a {
+  border: 1px solid var(--color-dourado);
+  color: var(--color-dourado);
+  background-color: transparent;
+  font-family: 'Cinzel', serif;
+  border-radius: 25px;
+  padding: 10px 26px;
+  transition: all 0.3s;
+}
+
+.main-border-button a:hover {
+  background-color: var(--color-dourado);
+  color: var(--color-verde);
+}
+
+/* ===================================================
+   6. CARDS DE JOGOS E SEÇÕES PRINCIPAIS
+   =================================================== */
+.main-banner {
+  background-color: var(--color-verde);
+  background-image: url(../images/banner-bg.jpg);
+  background-blend-mode: overlay;
+  border: 2px solid var(--color-dourado);
+  border-radius: 20px;
+  padding: 80px 60px;
+  margin-bottom: 25px;
+}
+
+.main-banner h6 {
+  font-size: 20px;
+  color: var(--color-bege);
+  margin-bottom: 25px;
+}
+
+.main-banner h4 {
+  font-size: 45px;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+  color: var(--color-branco);
+}
+
+.most-popular,
+.gaming-library,
+.featured-games,
+.top-downloaded,
+.live-stream {
+  background-color: var(--color-verde);
+  border: 2px solid var(--color-dourado);
+  border-radius: 20px;
+  padding: 25px;
+  margin-top: 60px;
+}
+
+/* Estilo unificado para itens/cards internos */
+.most-popular .item,
+.gaming-library .item,
+.featured-games .item,
+.start-stream .item {
+  background-color: var(--color-grafite);
+  border: 1px solid var(--color-dourado);
+  border-radius: 15px;
+  padding: 15px;
+  margin-bottom: 24px;
+  transition: transform 0.2s ease;
+}
+
+.most-popular .item:hover,
+.featured-games .item:hover {
+  transform: translateY(-3px);
+}
+
+.most-popular .item img,
+.featured-games .item img {
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.most-popular .item h4,
+.featured-games .item h4,
+.gaming-library .item ul li h4 {
+  font-size: 1.05rem;
+  color: var(--color-bege);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.most-popular .item span,
+.featured-games .item span,
+.gaming-library .item ul li span {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-dourado);
+  font-weight: 500;
+}
+
+.most-popular .item ul,
+.featured-games .item ul {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin-top: 8px;
+  list-style: none;
+  font-size: 0.88rem;
+  color: var(--color-bege);
+}
+
+.most-popular .item ul li i,
+.featured-games .item ul li i,
+.gaming-library .item ul li i {
+  color: var(--color-dourado);
+}
+
+/* ===================================================
+   7. FORMULÁRIOS DE LOGIN E CADASTRO
+   =================================================== */
+.login-box {
+  background-color: var(--color-verde);
+  border: 2px solid var(--color-dourado);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 14px rgba(28, 78, 89, 0.15);
+}
+
+.login-box h1,
+.login-box p {
+  color: var(--color-bege);
+}
+
+.form-label {
+  font-family: 'Cinzel', serif;
+  color: var(--color-bege);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  background-color: var(--color-bege);
+  border: 1px solid var(--color-dourado);
+  color: var(--color-grafite);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.form-control:focus {
+  border-color: var(--color-dourado);
+  box-shadow: 0 0 0 0.2rem rgba(196, 154, 69, 0.3);
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 0;
+}
+
+.form-check-input {
+  margin: 0;
+  width: 1.15em;
+  height: 1.15em;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: 1px solid var(--color-dourado);
+}
+
+.form-check-input:checked {
+  background-color: var(--color-dourado);
+  border-color: var(--color-dourado);
+}
+
+.form-check-label {
+  font-family: 'Cinzel', serif;
+  color: var(--color-bege);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.text-danger {
+  color: #FF8080;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ===================================================
+   8. COMPONENTES EXTRAS DO CYBORG AJUSTADOS
+   =================================================== */
+.live-stream span i,
+.top-streamers ul li h6 i {
+  color: var(--color-verde);
+  background-color: var(--color-dourado);
+}
+
+.live-stream span { color: var(--color-dourado); }
+
+.top-downloaded ul li .download i,
+.feature-banner .thumb a,
+.clips .item .thumb a {
+  color: var(--color-dourado);
+  background-color: var(--color-grafite);
+}
+
+.top-downloaded .text-button a { color: var(--color-dourado); }
+
+.main-profile {
+  background-color: var(--color-verde);
+  border-radius: 23px;
+  padding: 30px;
+}
+
+.main-profile ul {
+  background-color: var(--color-grafite);
+}
+
+/* ===================================================
+   9. RODAPÉ
+   =================================================== */
+footer {
+  background-color: var(--color-verde);
+  border-top: 3px solid var(--color-dourado);
+  padding: 20px 0;
+  margin-top: 30px;
+  text-align: center;
+}
+
+footer p {
+  color: var(--color-bege);
+  margin: 0;
+}
+
+footer p a, footer a {
+  color: var(--color-dourado);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all .3s;
+}
+
+footer p a:hover, footer a:hover {
+  color: var(--color-vermelho);
+}
