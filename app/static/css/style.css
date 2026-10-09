@@ -2,13 +2,25 @@
    1. PALETA DE CORES E VARIÁVEIS BASE
    =================================================== */
 :root {
-  --color-verde: #1C4E59;     /* Fundo dos cards e elementos principais */
-  --color-dourado: #C49A45;   /* Bordas, ícones, destaques e links */
-  --color-bege: #F9F6EE;      /* Fundo da página e texto em cards */
-  --color-grafite: #22282A;   /* Texto escuro */
-  --color-vermelho: #A04033;  /* Botões principais e erros */
-  --color-branco: #FFFFFF;    /* Container central da página */
+  /* Cores Sólidas */
+  --color-verde: #1C4E59;     
+  --color-dourado: #C49A45;   
+  --color-bege: #F9F6EE;      
+  --color-grafite: #22282A;   
+  --color-vermelho: #A04033;  
+  --color-branco: #FFFFFF;    
+  --color-erro: #FF8080;      
 
+  /* Cores com Transparência (Efeitos e Sombras) */
+  --sombra-verde-leve: rgba(28, 78, 89, 0.06);
+  --sombra-verde-forte: rgba(28, 78, 89, 0.15);
+  --sombra-preta: rgba(0, 0, 0, 0.15);
+  --sombra-dourada-foco: rgba(196, 154, 69, 0.3);
+  
+  /* Auxiliares */
+  --color-transparente: transparent;
+
+  /* Variáveis Bootstrap */
   --bs-body-bg: var(--color-bege);
   --bs-body-color: var(--color-grafite);
 }
@@ -26,13 +38,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   outline: 0;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html, body {
-  margin: 0;
-  padding: 0;
   background-color: var(--color-branco) !important;
   color: var(--color-grafite);
   font-family: 'Alegreya', serif;
@@ -50,9 +58,7 @@ a {
   color: var(--color-dourado);
   text-decoration: none !important;
 }
-a:hover {
-  color: var(--color-vermelho);
-}
+a:hover { color: var(--color-vermelho); }
 
 em {
   font-style: normal !important; 
@@ -82,23 +88,15 @@ p {
   margin-bottom: 0;
 }
 
-img {
-  width: 100%;
-  overflow: hidden;
-}
+img { width: 100%; overflow: hidden; }
 
-::selection {
-  background: var(--color-dourado);
-  color: var(--color-branco);
-}
-
-::-moz-selection {
+::selection, ::-moz-selection {
   background: var(--color-dourado);
   color: var(--color-branco);
 }
 
 /* ===================================================
-   3. ESTRUTURA CENTRAL DA PÁGINA
+   3. TÍTULOS E ESTRUTURAS DE SEÇÃO (GENÉRICAS)
    =================================================== */
 body .page-content {
   background-color: var(--color-bege) !important;
@@ -107,19 +105,19 @@ body .page-content {
   padding: 30px;
   margin-top: 110px;
   margin-bottom: 30px;
-  box-shadow: 0 6px 18px rgba(28, 78, 89, 0.06);
+  box-shadow: 0 6px 18px var(--sombra-verde-leve);
 }
 
 section { margin-top: 120px; }
 
-.heading-section h4 {
+/* Antigo: .heading-section */
+.section-title h4 {
   font-family: 'Cinzel Decorative', serif;
   font-size: 34px;
   color: var(--color-verde);
   margin-bottom: 30px;
 }
-
-.heading-section h4 em {
+.section-title h4 em {
   color: var(--color-dourado);
   text-decoration: underline;
 }
@@ -128,14 +126,13 @@ section { margin-top: 120px; }
    4. CABEÇALHO E NAVEGAÇÃO
    =================================================== */
 .header-area {
-  top: 0;
-  margin: 0;
   background-color: var(--color-verde);
   border-bottom: 3px solid var(--color-dourado);
   position: absolute;
-  height: auto !important;
+  top: 0;
   left: 0;
   right: 0;
+  height: auto !important;
   z-index: 100;
   transition: all .5s ease 0s;
 }
@@ -145,14 +142,20 @@ section { margin-top: 120px; }
   height: 70px !important;
   position: fixed !important;
   top: 0 !important;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.15) !important;
+  box-shadow: 0px 0px 10px var(--sombra-preta) !important;
 }
 
 .header-area .main-nav {
   display: flex;
   padding: 15px 0px;
+  align-items: center;
 }
 
+.header-area .main-nav .logo {
+  flex-basis: 25%;
+  margin-right: 5%;
+  transition: all 0.3s ease 0s;
+}
 .header-area .main-nav .logo img { width: 191px; }
 
 .site-title {
@@ -161,7 +164,6 @@ section { margin-top: 120px; }
   font-size: 1.4rem;
   text-decoration: none;
 }
-
 .site-title img {
   height: 38px;
   width: auto;
@@ -173,41 +175,101 @@ section { margin-top: 120px; }
   flex-basis: 70%;
   justify-content: flex-end;
   vertical-align: middle;
+  text-align: right;
+  margin-top: 0px;
+  margin-right: 0px;
+  position: relative;
+  z-index: 999;
 }
 
-.header-area .main-nav .nav li a {
+.header-area .main-nav .nav li {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: inline-block;
+}
+
+.header-area .main-nav .nav li a,
+.navbar-nav .nav-link {
+  display: block;
   font-family: 'Cinzel', serif;
   color: var(--color-bege);
   font-weight: 600;
-  padding: 6px 14px;
+  font-size: 14px;
+  text-transform: capitalize;
+  transition: all 0.3s ease 0s;
+  padding: 13px 10px; 
   border-radius: 18px;
-  transition: all 0.3s ease;
+  letter-spacing: .3px;
 }
 
+.navbar-nav .nav-link { padding: 6px 14px; }
+
 .header-area .main-nav .nav li a:hover,
-.header-area .main-nav .nav li a.active {
+.header-area .main-nav .nav li a.active,
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
   color: var(--color-dourado) !important;
 }
 
-.header-area .main-nav .nav li:last-child a {
+.header-area .main-nav .nav li:last-child a,
+.navbar-nav .nav-item:last-child .nav-link {
   background-color: var(--color-dourado);
   color: var(--color-verde) !important;
   font-weight: 700;
   border-radius: 20px;
-  padding: 6px 18px;
+  padding: 8px 20px;
   margin-left: 5px;
 }
 
-.header-area .main-nav .nav li:last-child a:hover {
+.header-area .main-nav .nav li:last-child a:hover,
+.navbar-nav .nav-item:last-child .nav-link:hover {
   background-color: var(--color-vermelho) !important;
   color: var(--color-branco) !important;
 }
 
+.header-area .main-nav .menu-trigger {
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  top: 23px;
+  width: 32px;
+  height: 40px;
+  text-indent: -9999em;
+  z-index: 99;
+  right: 20px;
+}
+
+.header-area .main-nav .menu-trigger span,
+.header-area .main-nav .menu-trigger span:before,
+.header-area .main-nav .menu-trigger span:after {
+  transition: all 0.4s;
+  background-color: var(--color-dourado);
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  left: 0;
+}
+
+.header-area .main-nav .menu-trigger span:before,
+.header-area .main-nav .menu-trigger span:after { content: ""; }
+.header-area .main-nav .menu-trigger span { top: 16px; }
+.header-area .main-nav .menu-trigger span:before { top: -10px; }
+.header-area .main-nav .menu-trigger span:after { top: 10px; }
+.header-area .main-nav .menu-trigger.active span { background-color: var(--color-transparente); }
+.header-area .main-nav .menu-trigger.active span:before { transform: translateY(6px) translateX(1px) rotate(45deg); }
+.header-area .main-nav .menu-trigger.active span:after { transform: translateY(-6px) translateX(1px) rotate(-45deg); }
+
+button.navbar-toggler {
+  border: none !important;
+  background: var(--color-transparente) !important;
+}
+
 /* ===================================================
-   5. BOTÕES DE AÇÃO
+   5. BOTÕES DE AÇÃO GLOBAIS
    =================================================== */
-.main-button a,
-.btn-primary {
+/* Antigo: .main-button a */
+.btn-custom {
   background-color: var(--color-vermelho);
   border: 1px solid var(--color-vermelho);
   color: var(--color-branco);
@@ -220,32 +282,33 @@ section { margin-top: 120px; }
   transition: all 0.3s ease;
 }
 
-.main-button a:hover,
-.btn-primary:hover {
+.btn-custom:hover {
   background-color: var(--color-dourado);
   border-color: var(--color-dourado);
   color: var(--color-verde);
 }
 
-.main-border-button a {
+/* Antigo: .main-border-button a */
+.btn-outline-custom {
   border: 1px solid var(--color-dourado);
   color: var(--color-dourado);
-  background-color: transparent;
+  background-color: var(--color-transparente);
   font-family: 'Cinzel', serif;
   border-radius: 25px;
   padding: 10px 26px;
   transition: all 0.3s;
 }
 
-.main-border-button a:hover {
+.btn-outline-custom:hover {
   background-color: var(--color-dourado);
   color: var(--color-verde);
 }
 
 /* ===================================================
-   6. CARDS DE JOGOS E SEÇÕES PRINCIPAIS
+   6. BANNERS, PAINÉIS E CARDS GERAIS
    =================================================== */
-.main-banner {
+/* Antigo: .main-banner */
+.hero-section {
   background-color: var(--color-verde);
   background-image: url(../images/banner-bg.jpg);
   background-blend-mode: overlay;
@@ -255,36 +318,29 @@ section { margin-top: 120px; }
   margin-bottom: 25px;
 }
 
-.main-banner h6 {
-  font-size: 20px;
+.hero-text h6 {
+  font-size: x-large;
   color: var(--color-bege);
   margin-bottom: 25px;
 }
 
-.main-banner h4 {
-  font-size: 45px;
+.hero-text h4 {
+  font-size: xx-large;
   text-transform: uppercase;
   margin-bottom: 25px;
   color: var(--color-branco);
 }
 
-.most-popular,
-.gaming-library,
-.featured-games,
-.top-downloaded,
-.live-stream {
+/* Antigo: .most-popular, .gaming-library, etc. */
+.content-section {
   background-color: var(--color-verde);
   border: 2px solid var(--color-dourado);
   border-radius: 20px;
   padding: 25px;
-  margin-top: 60px;
 }
 
-/* Estilo unificado para itens/cards internos */
-.most-popular .item,
-.gaming-library .item,
-.featured-games .item,
-.start-stream .item {
+/* Antigo: .most-popular .item, .gaming-library .item */
+.card-item {
   background-color: var(--color-grafite);
   border: 1px solid var(--color-dourado);
   border-radius: 15px;
@@ -293,37 +349,28 @@ section { margin-top: 120px; }
   transition: transform 0.2s ease;
 }
 
-.most-popular .item:hover,
-.featured-games .item:hover {
-  transform: translateY(-3px);
-}
+.card-item:hover { transform: translateY(-3px); }
 
-.most-popular .item img,
-.featured-games .item img {
+.card-item img {
   border-radius: 12px;
   margin-bottom: 12px;
 }
 
-.most-popular .item h4,
-.featured-games .item h4,
-.gaming-library .item ul li h4 {
+.card-item h4 {
   font-size: 1.05rem;
   color: var(--color-bege);
   font-weight: 700;
   margin-bottom: 4px;
 }
 
-.most-popular .item span,
-.featured-games .item span,
-.gaming-library .item ul li span {
+.card-item span {
   display: block;
   font-size: 0.85rem;
   color: var(--color-dourado);
   font-weight: 500;
 }
 
-.most-popular .item ul,
-.featured-games .item ul {
+.card-item ul {
   display: flex;
   justify-content: space-between;
   padding: 0;
@@ -333,11 +380,7 @@ section { margin-top: 120px; }
   color: var(--color-bege);
 }
 
-.most-popular .item ul li i,
-.featured-games .item ul li i,
-.gaming-library .item ul li i {
-  color: var(--color-dourado);
-}
+.card-item ul li i { color: var(--color-dourado); }
 
 /* ===================================================
    7. FORMULÁRIOS DE LOGIN E CADASTRO
@@ -347,13 +390,10 @@ section { margin-top: 120px; }
   border: 2px solid var(--color-dourado);
   border-radius: 16px;
   padding: 30px;
-  box-shadow: 0 4px 14px rgba(28, 78, 89, 0.15);
+  box-shadow: 0 4px 14px var(--sombra-verde-forte);
 }
 
-.login-box h1,
-.login-box p {
-  color: var(--color-bege);
-}
+.login-box h1, .login-box p { color: var(--color-bege); }
 
 .form-label {
   font-family: 'Cinzel', serif;
@@ -372,7 +412,7 @@ section { margin-top: 120px; }
 
 .form-control:focus {
   border-color: var(--color-dourado);
-  box-shadow: 0 0 0 0.2rem rgba(196, 154, 69, 0.3);
+  box-shadow: 0 0 0 0.2rem var(--sombra-dourada-foco);
 }
 
 .form-check {
@@ -404,14 +444,14 @@ section { margin-top: 120px; }
 }
 
 .text-danger {
-  color: #FF8080;
+  color: var(--color-erro);
   font-size: 0.85rem;
   margin-top: 4px;
   display: block;
 }
 
 /* ===================================================
-   8. COMPONENTES EXTRAS DO CYBORG AJUSTADOS
+   8. COMPONENTES EXTRAS DO CYBORG
    =================================================== */
 .live-stream span i,
 .top-streamers ul li h6 i {
@@ -435,10 +475,7 @@ section { margin-top: 120px; }
   border-radius: 23px;
   padding: 30px;
 }
-
-.main-profile ul {
-  background-color: var(--color-grafite);
-}
+.main-profile ul { background-color: var(--color-grafite); }
 
 /* ===================================================
    9. RODAPÉ
@@ -463,6 +500,65 @@ footer p a, footer a {
   transition: all .3s;
 }
 
-footer p a:hover, footer a:hover {
-  color: var(--color-vermelho);
+footer p a:hover, footer a:hover { color: var(--color-vermelho); }
+
+/* ===================================================
+   10. RESPONSIVIDADE (Mobile & Tablets)
+   =================================================== */
+@media (max-width: 992px) {
+  .header-area {
+    padding: 0px 15px;
+    height: 80px;
+    text-align: center;
+  }
+  .header-area .main-nav { border-radius: 0px; }
+  .header-area .main-nav .logo {
+    position: absolute;
+    left: 30px;
+    top: 15px;
+  }
+  .header-area .main-nav .menu-trigger {
+    display: block !important;
+  }
+  .header-area .main-nav .nav {
+    float: none;
+    width: 100%;
+    display: none;
+    margin-top: 65px !important;
+    background-color: var(--color-verde);
+    padding-bottom: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--color-dourado);
+    box-shadow: 0 4px 15px var(--sombra-preta);
+  }
+  .header-area .main-nav .nav li {
+    width: 100%;
+    display: block;
+    padding: 0;
+  }
+  .header-area .main-nav .nav li a {
+    padding: 10px 20px !important;
+  }
+  .header-area .main-nav .nav li:last-child a {
+    display: inline-block;
+    margin-top: 10px;
+  }
+  .gaming-library .item ul li { width: 48% !important; }
+  .gaming-library .item ul li:last-child { text-align: left; }
+  .hero-text {text-align: center;}
+  .rounded-circle {margin-top: 50px;}
+  .site-title {display: none;}
+  .me-2 {margin: 0;}
+}
+
+@media (max-width: 767px) {
+  body .page-content { padding: 15px 30px; }
+  .main-banner h4 { font-size: 35px; }
+  .gaming-library .item ul li,
+  .gaming-library .item ul li:first-child,
+  .gaming-library .item ul li:last-child {
+    width: 100% !important;
+    text-align: center !important;
+  }
+  .gaming-library .item ul li { margin-top: 30px; }
 }
