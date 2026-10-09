@@ -12,11 +12,16 @@ def home():
 @app.route("/ficha/<id>")
 def ficha_personagem(id):
     return render_template('ficha.html',
-                           nome = 'rogerinho')
+                           nome = 'Rogerinho')
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
+    
+    if form.validate_on_submit():
+        # Lógica de autenticação entraria aqui
+        pass
+        
     return render_template("login.html", 
                            form=form)
 
@@ -27,5 +32,13 @@ def logout():
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
     form = CadastroForm()
+    
+    if form.validate_on_submit():
+        # Lógica para salvar o usuário no banco de dados entraria aqui
+        
+        # flash('Usuário cadastrado com sucesso!')
+        # return redirect(url_for('login'))
+        pass
+        
     return render_template("cadastro.html", 
                            form=form)
