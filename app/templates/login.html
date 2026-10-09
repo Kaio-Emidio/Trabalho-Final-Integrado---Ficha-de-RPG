@@ -5,6 +5,7 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8">
+        <!-- Contêiner Genérico de Formulários -->
         <div class="login-box">
             <h1 class="mb-2 text-center">Login</h1>
             <p class="text-center mb-4">Acesse sua conta para continuar</p>
@@ -34,9 +35,11 @@
                 </div>
 
                 <div class="d-grid">
-                    {{ form.submit(class_="btn btn-primary") }}
+                    <!-- Padronizado com a classe genérica de botões -->
+                    {{ form.submit(class_="btn-custom w-100 text-center") }}
                 </div>
             </form>
+            
             <div class="text-center mt-3">
                 <p>Não possui uma conta? <a href="{{ url_for('cadastro') }}">Cadastre-se aqui</a></p>
             </div>

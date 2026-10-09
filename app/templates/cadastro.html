@@ -5,6 +5,7 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8">
+        <!-- Contêiner Genérico de Formulários -->
         <div class="login-box">
             <div class="text-center mb-4">
                 <h1>Cadastro</h1>
@@ -38,18 +39,20 @@
                     {% endfor %}
                 </div>
 
-                <div>
+                <div class="mb-3">
                     {{ form.password_conf.label(class_="form-label") }}
-                    {{ form.password(class_="form-control", placeholder="Confirme sua senha") }}
-                    {% for error in form.password.errors %}
+                    {{ form.password_conf(class_="form-control", placeholder="Confirme sua senha") }}
+                    {% for error in form.password_conf.errors %}
                         <span class="text-danger">{{ error }}</span>
                     {% endfor %}
                 </div>
 
                 <div class="d-grid mt-4">
-                    {{ form.submit(class_="btn btn-primary") }}
+                    <!-- Padronizado com a classe genérica de botões -->
+                    {{ form.submit(class_="btn-custom w-100 text-center") }}
                 </div>
             </form>
+            
             <div class="text-center mt-3">
                 <p>Já tem uma conta? <a href="{{ url_for('login') }}">Faça login aqui</a></p>
             </div>
