@@ -25,13 +25,11 @@ class CadastroForm(FlaskForm):
     submit = SubmitField('Salvar')
 
     def validate_username(self, username):
-        if username.data.lower() == 'admin':
-            raise ValidationError('O nome "admin" está reservado. Escolha outro.')
+        if username.data.strip().lower() in {'admin', 'administrador', 'adm'}:
+            raise ValidationError('Esse nome é reservado. Escolha outro.')
+        if not UsuarioService.checar_unicidade(username.data.strip(), 'username'):
+            raise ValidationError('Nome de usuário já cadastrado.')
 
-    # def validate_username(self, username):
-    #     if not UsuarioService.checar_unicidade(username.data.strip(), 'username'):
-    #         raise ValidationError('Nome de usuário já cadastrado.')
-
-    # def validate_email(self, email):
-    #     if not UsuarioService.checar_unicidade(email.data.strip().lower(), 'email'):
-    #         raise ValidationError('Email já cadastrado.')
+    def validate_email(self, email):
+        if not UsuarioService.checar_unicidade(email.data.strip().lower(), 'email'):
+            raise ValidationError('Email já cadastrado.')
