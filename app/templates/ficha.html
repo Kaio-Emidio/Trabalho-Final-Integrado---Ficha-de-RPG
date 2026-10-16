@@ -4,16 +4,19 @@
 
 {% block content %}
     <div class="row gap-2 mb-2">
-        <div class="col-md">
-            <div class="row content-section mb-2">
-                {% include 'ficha/dados.html' %}
-            </div>
-            <div class="row content-section">
-                {% include 'ficha/vida_mana.html' %}
-            </div>
+        <div class="col-md content-section">
+            {% include 'ficha/perfil.html' %}
         </div>
         <div class="col-md content-section">
+            {% include 'ficha/vida_mana.html' %}
+            </div>
+    </div>
+    <div class="row gap-2 mb-2">
+        <div class="col-md content-section">
             {% include 'ficha/atributos.html' %}
+        </div>
+        <div class="col-md-2 content-section">
+
         </div>
     </div>
     <div class="row gap-2">

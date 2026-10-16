@@ -5,7 +5,7 @@ from app.forms.cadastro_form import CadastroForm
 
 @app.route("/")
 def home():
-    logado = False
+    logado = True
     return render_template('index.html',
                            logado = logado)
 
