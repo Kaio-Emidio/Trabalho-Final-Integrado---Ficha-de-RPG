@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, redirect, flash, request
+from flask import render_template, redirect, flash, request, url_for
 from app.forms.login_form import LoginForm
 from app.forms.cadastro_form import CadastroForm
 
@@ -34,11 +34,9 @@ def cadastro():
     form = CadastroForm()
     
     if form.validate_on_submit():
-        # Lógica para salvar o usuário no banco de dados entraria aqui
+        flash('Usuário cadastrado com sucesso!')
+        return redirect(url_for('login'))
         
-        # flash('Usuário cadastrado com sucesso!')
-        # return redirect(url_for('login'))
-        pass
         
     return render_template("cadastro.html", 
                            form=form)
