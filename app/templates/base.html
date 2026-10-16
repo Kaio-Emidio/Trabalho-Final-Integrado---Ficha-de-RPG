@@ -21,13 +21,16 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" />
         <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" />
         <link rel="manifest" href="{{ url_for('static', filename='img/site.webmanifest') }}" />
+
+        <!-- CDN do Font Awesome 6 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
     </head>
 
     <body class="d-flex flex-column min-vh-100">
         <main class="flex-shrink-0 flex-grow-1">
             <!-- Inclui o Cabeçalho/Navegação -->
             {% include 'shared/nav.html' %}
-
+            
             {% with messages = get_flashed_messages(with_categories=True) %}
                 {% if messages %}
                     <div class="container px-5 pt-4">

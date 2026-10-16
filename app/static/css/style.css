@@ -382,6 +382,10 @@ button.navbar-toggler {
 
 .card-item ul li i { color: var(--color-dourado); }
 
+ul li {
+  color: var(--color-branco);
+}
+
 /* ===================================================
    7. FORMULÁRIOS DE LOGIN E CADASTRO
    =================================================== */
