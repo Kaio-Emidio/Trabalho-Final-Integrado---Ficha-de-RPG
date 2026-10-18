@@ -1,0 +1,92 @@
+<!-- Modals -->
+<div class="modal fade" id="configPerfil">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content content-section">
+            <div class="modal-header">
+                <h5 class="modal-title">Configurações do Perfil</h5>
+                <i class="fa-solid fa-xmark close-btn" data-bs-dismiss="modal"></i>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('login') }}" method="post" novalidate>
+                    <div class="row">
+                        <img class="w-25 mx-auto img-thumbnail mb-2" src="{{ url_for('static', filename='img/anonymous-user.png') }}" alt="Foto Personagem">
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            {{ modal_perfil.nome.label(class_="form-label") }}
+                            {{ modal_perfil.nome(class_="form-control") }}
+                            {% for error in modal_perfil.nome.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="mb-3">
+                            {{ modal_perfil.alcunha.label(class_="form-label") }}
+                            {{ modal_perfil.alcunha(class_="form-control") }}
+                            {% for error in modal_perfil.alcunha.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="mb-3">
+                                {{ modal_perfil.raca.label(class_="form-label") }}
+                                {{ modal_perfil.raca(class_="form-control") }}
+                                {% for error in modal_perfil.raca.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="mb-3">
+                                {{ modal_perfil.deus.label(class_="form-label") }}
+                                {{ modal_perfil.deus(class_="form-control") }}
+                                {% for error in modal_perfil.deus.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="mb-3">
+                                {{ modal_perfil.classe.label(class_="form-label") }}
+                                {{ modal_perfil.classe(class_="form-control") }}
+                                {% for error in modal_perfil.classe.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="mb-3">
+                                {{ modal_perfil.oficio.label(class_="form-label") }}
+                                {{ modal_perfil.oficio(class_="form-control") }}
+                                {% for error in modal_perfil.oficio.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="mb-3">
+                                {{ modal_perfil.alinhamento.label(class_="form-label") }}
+                                {{ modal_perfil.alinhamento(class_="form-control") }}
+                                {% for error in modal_perfil.alinhamento.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                    {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="mb-3">
+                                {{ modal_perfil.jogador.label(class_="form-label") }}
+                                {{ modal_perfil.jogador(class_="form-control") }}
+                                {% for error in modal_perfil.jogador.errors %}
+                                    <span class="text-danger">{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-custom-inv" data-bs-dismiss="modal">Cancelar</button>
+                {{ modal_perfil.submit(class_="btn-custom") }}
+            </div>
+        </div>    
+    </div>
+</div>
