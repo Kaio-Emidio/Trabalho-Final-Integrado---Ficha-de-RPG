@@ -6,45 +6,19 @@
 </head>
 <body>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-sm-3">
             <img class="img-thumbnail mb-2" src="{{ url_for('static', filename='img/anonymous-user.png') }}" alt="Foto Personagem">
         </div>
         <div class="col-sm">
             <div class="row">
-                <div class="col-md">
+                <div class="col-sm">
                     <h3>Nome</h3> 
                     <h6>Alcunha</h6>
                 </div>
                 <div class="col-sm-1">
-                    <a href="#meuModal" class="" data-bs-toggle="modal">
+                    <a href="#configPerfil" data-bs-toggle="modal">
                         <i class="fa-solid fa-gear"></i>
                     </a>
-
-                    <!-- Estrutura do Modal -->
-                    <div class="modal fade" id="meuModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        
-                        <!-- Cabeçalho do Modal -->
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel">Título da Janela</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                        </div>
-                        
-                        <!-- Corpo do Modal -->
-                        <div class="modal-body">
-                            Este é o conteúdo da sua janela flutuante! Você pode colocar formulários, textos, ou imagens aqui dentro do seu projeto Flask.
-                        </div>
-                        
-                        <!-- Rodapé do Modal -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="button" class="btn btn-success">Salvar Mudanças</button>
-                        </div>
-                        
-                        </div>
-                    </div>
-                    </div>
                 </div>
             </div>
             <div class="row mt-2">
@@ -77,5 +51,7 @@
             </div>
         </div>
     </div>
+
+    {% include 'ficha/modals/modal_perfil.html' %}
 </body>
 </html>
