@@ -40,6 +40,30 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 * { box-sizing: border-box; }
 
+/* --- Ajuste na barra lateral --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bege); 
+  border-radius: 8px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: var(--color-dourado);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dourado); 
+}
+
+html {
+  scrollbar-color: var(--color-grafite) var(--color-bege);
+  scrollbar-width: thin;
+}
+
 html, body {
   background-color: var(--color-branco) !important;
   color: var(--color-grafite);
@@ -270,9 +294,9 @@ button.navbar-toggler {
    =================================================== */
 /* Antigo: .main-button a */
 .btn-custom {
-  background-color: var(--color-vermelho);
-  border: 1px solid var(--color-vermelho);
-  color: var(--color-branco);
+  background-color: var(--color-dourado);
+  border: 1px solid var(--color-dourado);
+  color: var(--color-verde);
   font-family: 'Cinzel', serif;
   font-weight: 600;
   border-radius: 25px;
@@ -283,9 +307,28 @@ button.navbar-toggler {
 }
 
 .btn-custom:hover {
+  background-color: var(--color-vermelho);
+  border-color: var(--color-vermelho);
+  color: var(--color-branco);
+}
+
+.btn-custom-inv {
+  background-color: transparent;
+  border: 1px solid var(--color-dourado);
+  color: var(--color-branco);
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 10px 26px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.btn-custom-inv:hover {
   background-color: var(--color-dourado);
   border-color: var(--color-dourado);
-  color: var(--color-verde);
+  color: var(--color-branco);
 }
 
 /* Antigo: .main-border-button a */
@@ -302,6 +345,17 @@ button.navbar-toggler {
 .btn-outline-custom:hover {
   background-color: var(--color-dourado);
   color: var(--color-verde);
+}
+
+.close-btn{
+  color: var(--color-branco);
+  font-size: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  color: var(--color-vermelho);
 }
 
 /* ===================================================
@@ -408,10 +462,14 @@ ul li {
 
 .form-control {
   background-color: var(--color-bege);
-  border: 1px solid var(--color-dourado);
+  border: 2px solid var(--color-dourado);
   color: var(--color-grafite);
   border-radius: 8px;
   padding: 10px 14px;
+}
+
+.form-control:hover {
+  border-color: var(--color-vermelho);
 }
 
 .form-control:focus {
