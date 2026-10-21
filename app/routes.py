@@ -1,12 +1,15 @@
 from app import app
 from flask import render_template, redirect, flash, request, url_for
+from flask_login import current_user
 from app.forms.login_form import LoginForm
 from app.forms.cadastro_form import CadastroForm
 from app.forms.modal_perfil_form import ModalPerfilForm
+from app.services.UsuarioService import UsuarioService
+from app.services.AuthenticationService import AuthenticationService
 
 @app.route("/")
 def home():
-    logado = True
+    logado = current_user.is_authenticated
     return render_template('index.html',
                            logado = logado)
 
@@ -19,27 +22,35 @@ def ficha_personagem(id):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    form = LoginForm()
-    
-    if form.validate_on_submit():
-        # Lógica de autenticação entraria aqui
-        pass
-        
-    return render_template("login.html", 
-                           form=form)
+    formulario = LoginForm()
+    if formulario.validate_on_submit():
+        if AuthenticationService.login(formulario):
+            flash("Login efetuado com sucesso!", "success")
+            next_page = request.args.get('next')
+            if not next_page:
+                next_page = url_for('home')
+            return redirect(next_page)
+        else:
+            flash("Usuário ou senha inválidos.", "error")
+    return render_template('login.html', title='Login', form=formulario)
+
 
 @app.route('/logout')
 def logout():
-    pass
+    success = AuthenticationService.logout()
+    if not success:
+        flash('Erro ao realizar o logout', category='error')
+    return redirect(url_for('home'))
 
-@app.route("/cadastro", methods=["GET", "POST"])
-def cadastro():
-    form = CadastroForm()
-    
-    if form.validate_on_submit():
-        flash('Usuário cadastrado com sucesso!')
-        return redirect(url_for('login'))
-        
-        
-    return render_template("cadastro.html", 
-                           form=form)
+@app.route('/cadastrar', methods=['GET', 'POST'])
+def cadastrar():
+    formulario = CadastroForm()
+    if formulario.validate_on_submit():
+        sucesso = UsuarioService.salvar(formulario)
+        if sucesso:
+            flash("Usuário cadastrado com sucesso!", category = "success")
+            return redirect(url_for('login'))
+        else:
+            flash("Erro ao cadastrar o novo usuário!", category = "error")
+            return render_template("cadastro.html", form=formulario)
+    return render_template("cadastro.html", form=formulario, title="Cadastro de Usuário")

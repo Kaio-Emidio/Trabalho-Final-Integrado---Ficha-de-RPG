@@ -7,14 +7,13 @@ class AuthenticationService:
     
     def login(form):
         username = form.username.data.strip()
-        user = Usuario.query.filter_by(username=form.username.data).first()
+        user = Usuario.query.filter_by(username=username).first()
         
         if user:
             if check_password_hash(user.password_hash, form.password.data):
                 login_user(user, remember=form.remember_me.data)
                 return True
-        else:
-            return False
+        return False
         
     def logout():
         return logout_user()
