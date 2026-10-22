@@ -1,11 +1,12 @@
 from app import app
-from flask import render_template, redirect, flash, request, url_for
+from flask import render_template, redirect, flash, request, url_for, abort
 from flask_login import current_user
 from app.forms.login_form import LoginForm
 from app.forms.cadastro_form import CadastroForm
 from app.forms.modal_perfil_form import ModalPerfilForm
 from app.services.UsuarioService import UsuarioService
 from app.services.AuthenticationService import AuthenticationService
+from app.models.usuario import Usuario
 
 @app.route("/")
 def home():
@@ -54,3 +55,11 @@ def cadastrar():
             flash("Erro ao cadastrar o novo usuário!", category = "error")
             return render_template("cadastro.html", form=formulario)
     return render_template("cadastro.html", form=formulario, title="Cadastro de Usuário")
+
+
+@app.route("/admin")
+def admin():
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+    else:
+        return render_template("admin.html", title="Administração")
