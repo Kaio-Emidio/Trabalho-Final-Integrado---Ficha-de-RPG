@@ -1,57 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <div class="row">
-        <div class="col-sm-3">
-            <img class="img-thumbnail mb-2" src="{{ url_for('static', filename='img/anonymous-user.png') }}" alt="Foto Personagem">
-        </div>
-        <div class="col-sm">
-            <div class="row">
-                <div class="col-sm">
-                    <h3>Nome</h3> 
-                    <h6>Alcunha</h6>
-                </div>
-                <div class="col-sm-1">
-                    <a href="#configPerfil" data-bs-toggle="modal">
-                        <i class="fa-solid fa-gear"></i>
-                    </a>
-                </div>
+<div class="row">
+    <div class="col-sm-3">
+        <img class="img-thumbnail mb-2" src="{{ url_for('static', filename='img/anonymous-user.png') }}" alt="Foto Personagem">
+    </div>
+    <div class="col-sm">
+        <div class="row">
+            <div class="col-sm">
+                <h3>Nome</h3> 
+                <h6>Alcunha</h6>
             </div>
-            <div class="row mt-2">
-                <div class="col-sm">
-                    <ul>
-                        <li>
-                            Classe <em>Nível</em>
-                        </li>
-                        <li>
-                            Deus
-                        </li>
-                        <li>
-                            Raça
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-sm">
-                    <ul>
-                        <li>
-                            Jogador
-                        </li>
-                        <li>
-                            Ofício
-                        </li>
-                        <li>
-                            Alinhamento
-                        </li>
-                    </ul>
-                </div>
+            <div class="col-sm-1">
+                <a href="#configPerfil" data-bs-toggle="modal">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm">
+                <ul>
+                    <li>
+                        Classe <em>Nível</em>
+                    </li>
+                    <li>
+                        Deus
+                    </li>
+                    <li>
+                        Raça
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm">
+                <ul>
+                    <li>
+                        Jogador
+                    </li>
+                    <li>
+                        Ofício
+                    </li>
+                    <li>
+                        Alinhamento
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
 
-    {% include 'ficha/modals/modal_perfil.html' %}
-</body>
-</html>
+{% include 'ficha/modals/modal_perfil.html' %}

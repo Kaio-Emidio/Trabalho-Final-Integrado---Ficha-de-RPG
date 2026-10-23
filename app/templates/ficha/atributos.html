@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-
-</body>
-</html>
+<h4>
+    <em>
+        Atributos
+    </em>
+</h4>
+<div class="container">
+    <div class="row gap-2">
+        {% for i in range(6) %}
+        <div class="col-sm-2 atributo">
+            <div class="row">
+                <div class="col text-center nome">
+                    <h6>For</h6>
+                </div>
+                <div class="col text-center valor">
+                    <h6>11</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center modificador">
+                    <h5>+0</h5>
+                </div>
+                <div class="col text-center salvaguarda-t">
+                    <h5>+0</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

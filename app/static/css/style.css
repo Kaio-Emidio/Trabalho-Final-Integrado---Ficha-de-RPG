@@ -108,7 +108,7 @@ h4, h5, h6 {
 p {
   font-size: 15px;
   line-height: 30px;
-  color: var(--color-grafite);
+  color: var(--color-branco);
   margin-bottom: 0;
 }
 
@@ -565,7 +565,33 @@ footer p a, footer a {
 footer p a:hover, footer a:hover { color: var(--color-vermelho); }
 
 /* ===================================================
-   10. RESPONSIVIDADE (Mobile & Tablets)
+   10. FICHA (Atributos & Perícias
+   =================================================== */
+.atributo .valor {
+  border: 2px solid var(--color-dourado);
+  border-radius: 5px;
+}
+
+.atributo .modificador {
+  border: 2px solid var(--color-dourado);
+  border-radius: 5px;
+  background-color: var(--color-grafite);
+}
+
+.atributo .salvaguarda-f {
+  border: 2px solid var(--color-dourado);
+  border-radius: 5px;
+  background-color: var(--color-grafite);
+}
+
+.atributo .salvaguarda-t {
+  border: 2px solid var(--color-dourado);
+  border-radius: 5px;
+  background-color: var(--color-vermelho);
+}
+
+/* ===================================================
+   11. RESPONSIVIDADE (Mobile & Tablets)
    =================================================== */
 @media (max-width: 992px) {
   .header-area {
