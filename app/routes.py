@@ -28,10 +28,14 @@ def login():
     formulario = LoginForm()
     if formulario.validate_on_submit():
         if AuthenticationService.login(formulario):
+            flash("Login efetuado com sucesso.", "success")
             next_page = request.args.get('next')
             if not next_page:
                 next_page = url_for('home')
             return redirect(next_page)
+        flash("Usuário ou senha inválidos.", "error")
+    elif request.method == "POST":
+        flash("Não foi possível efetuar o login. Verifique os dados informados.", "error")
     return render_template('login.html', title='Login', form=formulario)
 
 
@@ -48,10 +52,13 @@ def cadastrar():
     if formulario.validate_on_submit():
         sucesso = UsuarioService.salvar(formulario)
         if sucesso:
+            flash("Cadastro efetuado com sucesso. Faça login para continuar.", "success")
             return redirect(url_for('login'))
         else:
             flash("Erro ao cadastrar o novo usuário!", category = "error")
             return render_template("cadastro.html", form=formulario)
+    if request.method == "POST":
+        flash("Não foi possível concluir o cadastro. Verifique os dados informados.", "error")
     return render_template("cadastro.html", form=formulario, title="Cadastro de Usuário")
 
 
@@ -149,6 +156,39 @@ def admin_promover_usuario(usuario_id):
     return redirect(url_for('admin'))
 
 
+@app.route("/admin/usuarios/<int:usuario_id>/rebaixar", methods=["POST"])
+def admin_rebaixar_usuario(usuario_id):
+    if not current_user.is_authenticated or current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    usuario = UsuarioService.buscar_por_id(usuario_id)
+    if usuario is None:
+        abort(404)
+    if usuario.id == current_user.id:
+        flash("Você não pode remover a própria autorização de administrador.", "error")
+        return redirect(url_for('admin'))
+    if usuario.role != Usuario.ROLES['ADM']:
+        flash("Este usuário não possui perfil de administrador.", "error")
+        return redirect(url_for('admin'))
+    if Usuario.query.filter_by(role=Usuario.ROLES['ADM']).count() <= 1:
+        flash("Não é possível rebaixar o último administrador.", "error")
+        return redirect(url_for('admin'))
+
+    usuario.role = Usuario.ROLES['USER']
+    try:
+        db.session.commit()
+    except SQLAlchemyError:
+        db.session.rollback()
+        app.logger.exception("Erro ao rebaixar usuário %s", usuario.id)
+        flash("Não foi possível remover a autorização de administrador.", "error")
+    else:
+        flash("Administrador rebaixado a usuário padrão com sucesso.", "success")
+    return redirect(url_for('admin'))
+
 @app.errorhandler(403)
 def erro_403(e):
     return render_template('403.html'), 403
+
+@app.errorhandler(404)
+def erro_404(e):
+    return render_template('404.html'), 404

@@ -145,6 +145,19 @@
                                                                         Tornar admin
                                                                     </button>
                                                                 </form>
+                                                            {% elif usuario.id != current_user.id %}
+                                                                <form class="d-inline"
+                                                                      action="{{ url_for('admin_rebaixar_usuario', usuario_id=usuario.id) }}"
+                                                                      method="post"
+                                                                      onsubmit="return confirm('Deseja remover a autorização de administrador deste usuário?');">
+                                                                    <input type="hidden"
+                                                                           name="csrf_token"
+                                                                           value="{{ csrf_token() }}">
+                                                                    <button class="btn btn-sm btn-outline-warning"
+                                                                            type="submit">
+                                                                        Tornar usuário
+                                                                    </button>
+                                                                </form> 
                                                             {% endif %}
                                                             {% if usuario.id != current_user.id %}
                                                                 <form class="d-inline"
