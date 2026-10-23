@@ -1,18 +1,201 @@
+
 {% extends "base.html" %}
 
 {% block title %}Administração{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8">
-        <div class="login-box">
-            <div class="text-center mb-4">
-                <h1>Administração</h1>
-                <p>Área de administração do sistema</p>
+<div class="container py-4 py-md-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+            <div class="login-box">
+
+                <!-- Cabeçalho -->
+                <header class="text-center mb-5">
+                    <span class="badge text-bg-primary mb-3">
+                        Painel administrativo
+                    </span>
+
+                    <h1 class="h2 fw-bold mb-2">
+                        Administração
+                    </h1>
+
+                    <p class="text-body-secondary mb-0">
+                        Gerencie os usuários e as configurações do sistema.
+                    </p>
+                </header>
+
+                <!-- Seção de gerenciamento -->
+                <section aria-labelledby="tituloGerenciamento">
+                    <h2 id="tituloGerenciamento" class="h5 fw-semibold mb-3">
+                        Gerenciamento
+                    </h2>
+
+                    <div class="row g-3">
+
+                        <!-- Card de usuários -->
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <button
+                                class="card h-100 w-100 text-start border shadow-sm
+                                       admin-card"
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalUsuarios"
+                                aria-controls="modalUsuarios">
+
+                                <div class="card-body p-4">
+                                    <div class="d-flex align-items-center
+                                                justify-content-between mb-3">
+
+                                        <div class="rounded-3 bg-primary-subtle
+                                                    text-primary p-3">
+                                            <i class="fa-solid fa-users fs-4"
+                                               aria-hidden="true"></i>
+                                        </div>
+
+                                        <i class="bi bi-arrow-up-right fs-5
+                                                  text-body-secondary"
+                                           aria-hidden="true"></i>
+                                    </div>
+
+                                    <h3 class="h5 fw-bold">
+                                        Gerenciar usuários
+                                    </h3>
+
+                                    <p class="text-body-secondary small mb-0">
+                                        Consulte, edite ou exclua usuários
+                                        cadastrados no sistema.
+                                    </p>
+                                </div>
+                            </button>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Modal de usuários -->
+                <div
+                    class="modal fade"
+                    id="modalUsuarios"
+                    tabindex="-1"
+                    aria-labelledby="tituloUsuarios"
+                    aria-hidden="true">
+
+                    <div class="modal-dialog modal-lg modal-dialog-centered
+                                modal-dialog-scrollable">
+
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <div>
+                                    <h2 class="modal-title fs-5 fw-bold"
+                                        id="tituloUsuarios">
+                                        Gerenciar usuários
+                                    </h2>
+
+                                    <p class="text-body-secondary small mb-0">
+                                        Consulte e gerencie os usuários
+                                        cadastrados.
+                                    </p>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Fechar">
+                                </button>
+                            </div>
+
+                            <div class="modal-body p-4">
+                                <p class="text-body-secondary">
+                                    Total de usuários: {{ usuarios|length }}
+                                </p>
+
+                                {% if usuarios %}
+                                    <div class="table-responsive">
+                                        <table class="table table-striped
+                                                      align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Usuário</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Perfil</th>
+                                                    <th scope="col">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for usuario in usuarios %}
+                                                    <tr>
+                                                        <td>{{ usuario.username }}</td>
+                                                        <td>{{ usuario.email }}</td>
+                                                        <td>
+                                                            {{ "Administrador" if usuario.role == "adm" else "Usuário" }}
+                                                        </td>
+                                                        <td class="text-nowrap">
+                                                            <a class="btn btn-sm btn-outline-primary"
+                                                               href="{{ url_for('admin_editar_usuario', usuario_id=usuario.id) }}">
+                                                                Editar
+                                                            </a>
+                                                            {% if usuario.role == "user" %}
+                                                                <form class="d-inline"
+                                                                      action="{{ url_for('admin_promover_usuario', usuario_id=usuario.id) }}"
+                                                                      method="post"
+                                                                      onsubmit="return confirm('Deseja tornar este usuário administrador?');">
+                                                                    <input type="hidden"
+                                                                           name="csrf_token"
+                                                                           value="{{ csrf_token() }}">
+                                                                    <button class="btn btn-sm btn-outline-success"
+                                                                            type="submit">
+                                                                        Tornar admin
+                                                                    </button>
+                                                                </form>
+                                                            {% endif %}
+                                                            {% if usuario.id != current_user.id %}
+                                                                <form class="d-inline"
+                                                                      action="{{ url_for('admin_excluir_usuario', usuario_id=usuario.id) }}"
+                                                                      method="post"
+                                                                      onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');">
+                                                                    <input type="hidden"
+                                                                           name="csrf_token"
+                                                                           value="{{ csrf_token() }}">
+                                                                    <button class="btn btn-sm btn-outline-danger"
+                                                                            type="submit">
+                                                                        Excluir
+                                                                    </button>
+                                                                </form>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <div class="text-center py-4">
+                                        <i class="fa-solid fa-users fs-1
+                                                  text-body-secondary"
+                                           aria-hidden="true"></i>
+                                        <p class="mt-3 mb-0">
+                                            Ainda não há usuários cadastrados.
+                                        </p>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="modal-footer">
+                                <button
+                                    type="button"
+                                    class="btn btn-outline-secondary"
+                                    data-bs-dismiss="modal">
+                                    Fechar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-            
-
         </div>
     </div>
 </div>
