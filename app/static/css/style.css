@@ -326,8 +326,8 @@ button.navbar-toggler {
 }
 
 .btn-custom-inv:hover {
-  background-color: var(--color-dourado);
-  border-color: var(--color-dourado);
+  background-color: var(--color-vermelho);
+  border-color: var(--color-vermelho);
   color: var(--color-branco);
 }
 
