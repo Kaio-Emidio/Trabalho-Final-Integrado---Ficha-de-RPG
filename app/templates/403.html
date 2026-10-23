@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+
+{% block title %}Acesso negado - 403{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+        <div class="login-box">
+            <div class="text-center mb-4">
+                <h1>403</h1>
+                <h2>Acesso negado</h2>
+                <p>
+                    Você não tem permissão para acessar
+                    esta página.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <a href="{{ url_for('home') }}"
+                   class="btn btn-primary">
+                    Voltar para a página inicial
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
