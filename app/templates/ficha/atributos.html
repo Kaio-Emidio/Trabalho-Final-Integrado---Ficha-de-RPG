@@ -1,29 +1,46 @@
-<h4>
-    <em>
-        Atributos
-    </em>
-</h4>
-<div class="container">
-    <div class="row gap-2">
-        {% for i in range(6) %}
-        <div class="col-sm-2 atributo">
-            <div class="row">
-                <div class="col text-center nome">
-                    <h6>For</h6>
-                </div>
-                <div class="col text-center valor">
-                    <h6>11</h6>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center modificador">
-                    <h5>+0</h5>
-                </div>
-                <div class="col text-center salvaguarda-t">
-                    <h5>+0</h5>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+<div class="row">
+    <div class="col-sm">
+        <h4>
+            <em>
+                Atributos
+            </em>
+        </h4>
+    </div>
+    <div class="col-sm-1 text-end">
+        <a href="#configAtributo" data-bs-toggle="modal">
+            <i class="fa-solid fa-gear"></i>
+        </a>
     </div>
 </div>
+<div class="row">
+    {% for i in range(6) %}
+    <div class="atributo col-6 col-md-4 col-lg-2 text-center">
+        <div class="row gx-2">
+            <div class="col-6 gx-1 gy-1">
+                <h6 class="nome py-2">
+                    For
+                </h6>
+            </div>
+            <div class="col-6 gx-1 gy-1">
+                <h6 class="valor py-2">
+                    11
+                </h6>
+            </div>
+            <div class="col-6 gx-1 gy-1">
+                <h6 class="modificador py-2">
+                    +0
+                </h6>
+                <p>Mod</p>
+            </div>
+            <div class="col-6 gx-1 gy-1">
+                <h6 class="salvaguarda-t py-2">
+                    +2
+                </h6>
+                <p>Salv</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% include 'ficha/modals/modal_atributos.html' %}
