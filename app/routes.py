@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, redirect, flash, request, url_for
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.forms.login_form import LoginForm
 from app.forms.cadastro_form import CadastroForm
 from app.forms.modal_perfil_form import ModalPerfilForm
@@ -16,6 +16,7 @@ def home():
                            adm=adm)
 
 @app.route("/ficha/<id>")
+@login_required
 def ficha_personagem(id):
     modal_perfil = ModalPerfilForm()
     return render_template('ficha.html',
@@ -38,6 +39,7 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     success = AuthenticationService.logout()
     if not success:

@@ -23,7 +23,7 @@
                                 <li class="nav-item"><a href="{{ url_for('home') }}" class="nav-link">Home</a></li>
                                 <li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
                                 {% if adm %}
-                                    <li class="nav-item"> <a href="{{ url_for('home') }}" class="nav-link">Admin</a></li>
+                                    <li class="nav-item"> <a href="{{ url_for('logout') }}" class="nav-link">Admin</a></li>
                                 {% endif %}
                             {% else %}
                                 <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
