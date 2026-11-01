@@ -10,8 +10,10 @@ from app.services.AuthenticationService import AuthenticationService
 @app.route("/")
 def home():
     logado = current_user.is_authenticated
+    adm = logado and current_user.adm
     return render_template('index.html',
-                           logado = logado)
+                           logado = logado,
+                           adm=adm)
 
 @app.route("/ficha/<id>")
 def ficha_personagem(id):

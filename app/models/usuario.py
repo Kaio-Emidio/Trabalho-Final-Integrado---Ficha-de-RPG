@@ -13,6 +13,9 @@ class Usuario(UserMixin, db.Model):
                       index=True,
                       unique=True,
                       nullable=False)
+    adm = db.Column(db.Boolean,
+                    default=False,
+                    nullable=False)
     
     personagens = db.relationship('Personagem',
                                   back_populates='jogador')
