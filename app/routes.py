@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, redirect, flash, request, url_for, abort
-from flask_login import current_user
+from flask_login import current_user, login_required
 from app.forms.login_form import LoginForm
 from app.forms.cadastro_form import CadastroForm
 from app.forms.admin_usuario_form import AdminUsuarioForm
@@ -17,6 +17,7 @@ def home():
                            logado = logado)
 
 @app.route("/ficha/<id>")
+@login_required
 def ficha_personagem(id):
     modal_perfil = ModalPerfilForm()
     return render_template('ficha.html',
@@ -40,6 +41,7 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     success = AuthenticationService.logout()
     if not success:
@@ -63,6 +65,7 @@ def cadastrar():
 
 
 @app.route("/admin")
+@login_required
 def admin():
     if not current_user.is_authenticated or current_user.role != Usuario.ROLES['ADM']:
         abort(403)
@@ -74,6 +77,7 @@ def admin():
 
 
 @app.route("/admin/usuarios/<int:usuario_id>/editar", methods=["GET", "POST"])
+@login_required
 def admin_editar_usuario(usuario_id):
     if not current_user.is_authenticated or current_user.role != Usuario.ROLES['ADM']:
         abort(403)
@@ -103,6 +107,7 @@ def admin_editar_usuario(usuario_id):
 
 
 @app.route("/admin/usuarios/<int:usuario_id>/excluir", methods=["POST"])
+@login_required
 def admin_excluir_usuario(usuario_id):
     if not current_user.is_authenticated or current_user.role != Usuario.ROLES['ADM']:
         abort(403)
@@ -133,6 +138,7 @@ def admin_excluir_usuario(usuario_id):
 
 
 @app.route("/admin/usuarios/<int:usuario_id>/promover", methods=["POST"])
+@login_required
 def admin_promover_usuario(usuario_id):
     if not current_user.is_authenticated or current_user.role != Usuario.ROLES['ADM']:
         abort(403)
@@ -157,6 +163,7 @@ def admin_promover_usuario(usuario_id):
 
 
 @app.route("/admin/usuarios/<int:usuario_id>/rebaixar", methods=["POST"])
+@login_required
 def admin_rebaixar_usuario(usuario_id):
     if not current_user.is_authenticated or current_user.role != Usuario.ROLES['ADM']:
         abort(403)
