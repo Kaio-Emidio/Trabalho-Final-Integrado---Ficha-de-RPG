@@ -4,6 +4,7 @@ from flask_login import current_user
 from app.forms.login_form import LoginForm
 from app.forms.cadastro_form import CadastroForm
 from app.forms.modal_perfil_form import ModalPerfilForm
+from app.forms.modal_atributos_form import ModalAtributosForm
 from app.services.UsuarioService import UsuarioService
 from app.services.AuthenticationService import AuthenticationService
 
@@ -15,10 +16,14 @@ def home():
 
 @app.route("/ficha/<id>")
 def ficha_personagem(id):
+    logado = current_user.is_authenticated
     modal_perfil = ModalPerfilForm()
+    modal_atb = ModalAtributosForm()
     return render_template('ficha.html',
+                           logado = logado,
                            nome = 'Rogerinho',
-                           modal_perfil = modal_perfil)
+                           modal_perfil = modal_perfil,
+                           modal_atb = modal_atb)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
