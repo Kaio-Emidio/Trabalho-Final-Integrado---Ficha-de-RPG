@@ -14,7 +14,7 @@ from sqlalchemy.exc import SQLAlchemyError
 @app.route("/")
 def home():
     logado = current_user.is_authenticated
-    adm = logado and current_user.adm
+    adm = logado and current_user.role==Usuario.ROLES["ADM"]
     return render_template('index.html',
                            logado = logado,
                            adm=adm)
