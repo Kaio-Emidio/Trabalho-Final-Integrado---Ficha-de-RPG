@@ -6,7 +6,6 @@ from app.forms.cadastro_form import CadastroForm
 from app.forms.modals_ficha.modal_perfil_form import ModalPerfilForm
 from app.forms.modals_ficha.modal_atributos_form import ModalAtributosForm
 from app.forms.admin_usuario_form import AdminUsuarioForm
-from app.forms.modal_perfil_form import ModalPerfilForm
 from app.forms.raca_form import RacaForm
 from app.services.UsuarioService import UsuarioService
 from app.services.AuthenticationService import AuthenticationService
