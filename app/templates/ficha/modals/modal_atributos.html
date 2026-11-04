@@ -1,6 +1,6 @@
 <!-- Modals -->
 <div class="modal fade" id="configAtributo">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content content-section">
             <div class="modal-header">
                 <h5 class="modal-title">Editar Atributos e Salvaguardas</h5>
@@ -9,13 +9,246 @@
             <div class="modal-body">
                 <form action="" method="post" novalidate>
                     <div class="row">
-                        
+                        <ul class="nav nav-tabs" id="minhasAbas" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="aba1-tab" data-bs-toggle="tab" data-bs-target="#aba1" type="button" role="tab">
+                                    <h6>Atributos</h6>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="aba2-tab" data-bs-toggle="tab" data-bs-target="#aba2" type="button" role="tab">
+                                    <h6>Salvaguardas</h6>
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content pt-3" id="conteudoAbas">
+                            <div class="tab-pane fade show active" id="aba1" role="tabpanel">
+                                <div class="row">
+                                    <div class="col separador-coluna">
+                                        <div class="row mb-3">
+                                            <h6>Força</h6>
+                                            <div class="col">
+                                                {{ modal_atb.valor_for.label(class_="form-label") }}
+                                                {{ modal_atb.valor_for(class_="form-control") }}
+                                                {% for error in modal_atb.valor_for.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col">
+                                                {{ modal_atb.outro_bon_for.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_for(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_for.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <h6>Destreza</h6>
+                                            <div class="col">
+                                                {{ modal_atb.valor_des.label(class_="form-label") }}
+                                                {{ modal_atb.valor_des(class_="form-control") }}
+                                                {% for error in modal_atb.valor_des.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col">
+                                                {{ modal_atb.outro_bon_des.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_des(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_des.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <h6>Constituição</h6>
+                                            <div class="col">
+                                                {{ modal_atb.valor_con.label(class_="form-label") }}
+                                                {{ modal_atb.valor_con(class_="form-control") }}
+                                                {% for error in modal_atb.valor_con.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col">
+                                                {{ modal_atb.outro_bon_con.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_con(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_con.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row mb-3">
+                                            <h6>Inteligência</h6>
+                                            <div class="col">
+                                                {{ modal_atb.valor_int.label(class_="form-label") }}
+                                                {{ modal_atb.valor_int(class_="form-control") }}
+                                                {% for error in modal_atb.valor_int.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col">
+                                                {{ modal_atb.outro_bon_int.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_int(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_int.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <h6>Sabedoria</h6>
+                                            <div class="col">
+                                                {{ modal_atb.valor_sab.label(class_="form-label") }}
+                                                {{ modal_atb.valor_sab(class_="form-control") }}
+                                                {% for error in modal_atb.valor_sab.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col">
+                                                {{ modal_atb.outro_bon_sab.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_sab(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_sab.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <h6>Carisma</h6>
+                                            <div class="col">
+                                                {{ modal_atb.valor_car.label(class_="form-label") }}
+                                                {{ modal_atb.valor_car(class_="form-control") }}
+                                                {% for error in modal_atb.valor_car.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col">
+                                                {{ modal_atb.outro_bon_car.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_car(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_car.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="aba2" role="tabpanel">
+                                <div class="row">
+                                    <div class="col separador-coluna">
+                                        <div class="row mb-3">
+                                            <div class="col ">
+                                            <h6>Força</h6>
+                                            {{ modal_atb.salv_prof_for(class_="form-check-input mt-2") }}
+                                            {{ modal_atb.salv_prof_for.label(class_="form-label mt-2") }}
+                                                {% for error in modal_atb.salv_prof_for.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col ">
+                                                {{ modal_atb.outro_bon_salv_for.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_salv_for(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_salv_for.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col ">
+                                            <h6>Destreza</h6>
+                                            {{ modal_atb.salv_prof_des(class_="form-check-input mt-2") }}
+                                            {{ modal_atb.salv_prof_des.label(class_="form-label mt-2") }}
+                                                {% for error in modal_atb.salv_prof_des.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col ">
+                                                {{ modal_atb.outro_bon_salv_des.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_salv_des(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_salv_des.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col ">
+                                            <h6>Constituição</h6>
+                                            {{ modal_atb.salv_prof_con(class_="form-check-input mt-2") }}
+                                            {{ modal_atb.salv_prof_con.label(class_="form-label mt-2") }}
+                                                {% for error in modal_atb.salv_prof_con.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col ">
+                                                {{ modal_atb.outro_bon_salv_con.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_salv_con(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_salv_con.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row mb-3">
+                                            <div class="col ">
+                                            <h6>Inteligência</h6>
+                                            {{ modal_atb.salv_prof_int(class_="form-check-input mt-2") }}
+                                            {{ modal_atb.salv_prof_int.label(class_="form-label mt-2") }}
+                                                {% for error in modal_atb.salv_prof_int.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col ">
+                                                {{ modal_atb.outro_bon_salv_int.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_salv_int(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_salv_int.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col ">
+                                            <h6>Sabedoria</h6>
+                                            {{ modal_atb.salv_prof_sab(class_="form-check-input mt-2") }}
+                                            {{ modal_atb.salv_prof_sab.label(class_="form-label mt-2") }}
+                                                {% for error in modal_atb.salv_prof_sab.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col ">
+                                                {{ modal_atb.outro_bon_salv_sab.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_salv_sab(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_salv_sab.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col ">
+                                            <h6>Carisma</h6>
+                                            {{ modal_atb.salv_prof_car(class_="form-check-input mt-2") }}
+                                            {{ modal_atb.salv_prof_car.label(class_="form-label mt-2") }}
+                                                {% for error in modal_atb.salv_prof_car.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col ">
+                                                {{ modal_atb.outro_bon_salv_car.label(class_="form-label") }}
+                                                {{ modal_atb.outro_bon_salv_car(class_="form-control") }}
+                                                {% for error in modal_atb.outro_bon_salv_car.errors %}
+                                                    <span class="text-danger">{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-custom-inv" data-bs-dismiss="modal">Cancelar</button>
-                submit
+                {{ modal_atb.submit(class_="btn-custom") }}
             </div>
         </div>    
     </div>

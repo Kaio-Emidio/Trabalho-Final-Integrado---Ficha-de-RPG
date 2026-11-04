@@ -3,8 +3,8 @@ from flask import render_template, redirect, flash, request, url_for
 from flask_login import current_user
 from app.forms.login_form import LoginForm
 from app.forms.cadastro_form import CadastroForm
-from app.forms.modal_perfil_form import ModalPerfilForm
-from app.forms.modal_atributos_form import ModalAtributosForm
+from app.forms.modals_ficha.modal_perfil_form import ModalPerfilForm
+from app.forms.modals_ficha.modal_atributos_form import ModalAtributosForm
 from app.services.UsuarioService import UsuarioService
 from app.services.AuthenticationService import AuthenticationService
 
