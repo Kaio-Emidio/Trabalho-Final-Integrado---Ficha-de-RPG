@@ -6,18 +6,119 @@ from app.forms.cadastro_form import CadastroForm
 from app.forms.modals_ficha.modal_perfil_form import ModalPerfilForm
 from app.forms.modals_ficha.modal_atributos_form import ModalAtributosForm
 from app.forms.admin_usuario_form import AdminUsuarioForm
+from app.forms.modal_perfil_form import ModalPerfilForm
+from app.forms.raca_form import RacaForm
 from app.services.UsuarioService import UsuarioService
 from app.services.AuthenticationService import AuthenticationService
 from app.models.usuario import Usuario
+from app.models.raca import Raca
 from sqlalchemy.exc import SQLAlchemyError
 
 @app.route("/")
 def home():
     logado = current_user.is_authenticated
-    adm = logado and current_user.role==Usuario.ROLES["ADM"]
+    adm = logado and current_user.role == Usuario.ROLES['ADM']
     return render_template('index.html',
                            logado = logado,
                            adm=adm)
+
+@app.route("/racas")
+def racas():
+    logado = current_user.is_authenticated
+    adm = logado and current_user.role == Usuario.ROLES['ADM']
+    racas = Raca.query.order_by(Raca.nome).all()
+    return render_template('racas.html',
+                           logado = logado,
+                           adm=adm,
+                           racas=racas)
+
+
+@app.route("/admin/racas/nova", methods=["GET", "POST"])
+@login_required
+def admin_nova_raca():
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    formulario = RacaForm()
+    if formulario.validate_on_submit():
+        raca = Raca(
+            nome=formulario.nome.data.strip(),
+            tipo_criatura=formulario.tipo_criatura.data.strip(),
+            tamanho=formulario.tamanho.data.strip()
+        )
+        db.session.add(raca)
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao cadastrar raça")
+            flash("Não foi possível cadastrar a raça.", "error")
+        else:
+            flash("Raça cadastrada com sucesso.", "success")
+            return redirect(url_for('racas'))
+
+    return render_template("admin/raca_form.html",
+                           title="Adicionar raça",
+                           formulario=formulario,
+                           acao="Adicionar raça")
+
+
+@app.route("/admin/racas/<int:raca_id>/editar", methods=["GET", "POST"])
+@login_required
+def admin_editar_raca(raca_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    raca = db.session.get(Raca, raca_id)
+    if raca is None:
+        abort(404)
+
+    formulario = RacaForm(raca_id=raca.id, obj=raca)
+    if formulario.validate_on_submit():
+        raca.nome = formulario.nome.data.strip()
+        raca.tipo_criatura = formulario.tipo_criatura.data.strip()
+        raca.tamanho = formulario.tamanho.data.strip()
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao atualizar raça %s", raca.id)
+            flash("Não foi possível atualizar a raça.", "error")
+        else:
+            flash("Raça atualizada com sucesso.", "success")
+            return redirect(url_for('racas'))
+
+    return render_template("admin/raca_form.html",
+                           title="Editar raça",
+                           formulario=formulario,
+                           acao="Salvar alterações",
+                           raca=raca)
+
+
+@app.route("/admin/racas/<int:raca_id>/excluir", methods=["POST"])
+@login_required
+def admin_excluir_raca(raca_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    raca = db.session.get(Raca, raca_id)
+    if raca is None:
+        abort(404)
+    if raca.personagens or raca.habilidades:
+        flash("Não é possível excluir uma raça vinculada a personagens ou habilidades.",
+              "error")
+        return redirect(url_for('racas'))
+
+    try:
+        db.session.delete(raca)
+        db.session.commit()
+    except SQLAlchemyError:
+        db.session.rollback()
+        app.logger.exception("Erro ao excluir raça %s", raca.id)
+        flash("Não foi possível excluir a raça.", "error")
+    else:
+        flash("Raça excluída com sucesso.", "success")
+    return redirect(url_for('racas'))
 
 @app.route("/ficha/<id>")
 @login_required
@@ -78,9 +179,11 @@ def admin():
         abort(403)
     else:
         usuarios = UsuarioService.listar().all()
+        racas = Raca.query.order_by(Raca.nome).all()
         return render_template("admin.html",
                                title="Administração",
-                               usuarios=usuarios)
+                               usuarios=usuarios,
+                               racas=racas)
 
 
 @app.route("/admin/usuarios/<int:usuario_id>/editar", methods=["GET", "POST"])
