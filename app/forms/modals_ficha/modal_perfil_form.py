@@ -35,14 +35,14 @@ class ModalPerfilForm(FlaskForm):
                                 'Caçador'])
     alinhamento = SelectField("Alinhamento",
                               choices=[
-                                    'Leal e Bom',
-                                    'Neutro e Bom',
-                                    'Caótico e Bom',
-                                    'Leal e Neutro',
-                                    'Neutro',
-                                    'Caótico e Neutro',
-                                    'Leal e Mau',
-                                    'Neutro e Mau',
-                                    'Caótico e Mau'])
+                                    ('LB', 'Leal e Bom'),
+                                    ('NB', 'Neutro e Bom'),
+                                    ('CB','Caótico e Bom'),
+                                    ('LN', 'Leal e Neutro'),
+                                    ('NN', 'Neutro'),
+                                    ('CN', 'Caótico e Neutro'),
+                                    ('LM', 'Leal e Mau'),
+                                    ('NM', 'Neutro e Mau'),
+                                    ('CM', 'Caótico e Mau')])
     jogador = StringField("Jogador")
     submit = SubmitField("Salvar")
