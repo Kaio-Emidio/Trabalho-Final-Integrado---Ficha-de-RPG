@@ -1,0 +1,28 @@
+<section class="admin-management" aria-labelledby="tituloEnciclopediaRacas">
+
+    <h2 id="tituloEnciclopediaRacas" class="h5 fw-semibold mb-3">
+        Enciclopédia
+    </h2>
+
+    <div class="row g-3">
+        <div class="col-12">
+            <a
+                class="card text-start text-decoration-none border shadow-sm admin-card admin-raca-card"
+                href="{{ url_for('racas') }}">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="rounded-3 bg-primary-subtle text-primary p-3">
+                            <i class="fa-solid fa-book-open fs-4" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                    <h3 class="h5 fw-bold">Raças cadastradas</h3>
+                    <p class="text-body-secondary small mb-0">
+                        Consulte as raças disponíveis no sistema.
+                    </p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</section>

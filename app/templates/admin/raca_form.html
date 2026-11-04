@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container py-4 py-md-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="login-box">
+                <h1 class="h3 fw-bold mb-4">{{ title }}</h1>
+
+                <form method="post" novalidate>
+                    {{ formulario.hidden_tag() }}
+
+                    <div class="mb-3">
+                        {{ formulario.nome.label(class_="form-label") }}
+                        {{ formulario.nome(class_="form-control") }}
+                        {% for erro in formulario.nome.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ formulario.tipo_criatura.label(class_="form-label") }}
+                        {{ formulario.tipo_criatura(class_="form-control") }}
+                        {% for erro in formulario.tipo_criatura.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ formulario.tamanho.label(class_="form-label") }}
+                        {{ formulario.tamanho(class_="form-control") }}
+                        {% for erro in formulario.tamanho.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        {{ formulario.submit(class_="btn-custom", value=acao) }}
+                        <a class="btn-custom-inv" href="{{ url_for('racas') }}">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
