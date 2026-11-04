@@ -108,7 +108,7 @@ h4, h5, h6 {
 p {
   font-size: 15px;
   line-height: 30px;
-  color: var(--color-grafite);
+  color: var(--color-branco);
   margin-bottom: 0;
 }
 
@@ -362,6 +362,66 @@ button.navbar-toggler {
   color: var(--color-vermelho);
 }
 
+
+/* ===================================================
+   12. ABAS DOS MODAIS (BOOTSTRAP)
+   =================================================== */
+
+/* Navegação das abas */
+.modal .nav-tabs {
+    border-bottom: 2px solid var(--color-dourado);
+    gap: 5px;
+}
+
+/* Abas não selecionadas */
+.modal .nav-tabs .nav-link {
+    background-color: var(--color-verde);
+    color: var(--color-bege) !important;
+    border: 1px solid var(--color-dourado);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+/* Efeito ao passar o mouse */
+.modal .nav-tabs .nav-link:hover {
+    background-color: var(--color-dourado);
+    color: var(--color-verde) !important;
+    border-color: var(--color-dourado);
+}
+
+/* Aba selecionada */
+.modal .nav-tabs .nav-link.active {
+    background-color: var(--color-grafite);
+    color: var(--color-dourado) !important;
+    border-color: var(--color-dourado);
+    border-bottom: 2px solid var(--color-verde);
+}
+
+/* Corpo do conteúdo das abas */
+.modal .tab-content {
+    background-color: var(--color-verde);
+    color: var(--color-bege);
+    border: 1px solid var(--color-dourado);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 20px;
+}
+
+/* Títulos dentro das abas */
+.modal .tab-content h6 {
+    color: var(--color-dourado) !important;
+    margin-bottom: 12px;
+}
+
+/* Parágrafos dentro das abas */
+.modal .tab-content p {
+    color: var(--color-bege);
+}
+
+
 /* ===================================================
    6. BANNERS, PAINÉIS E CARDS GERAIS
    =================================================== */
@@ -596,7 +656,37 @@ footer p a, footer a {
 footer p a:hover, footer a:hover { color: var(--color-vermelho); }
 
 /* ===================================================
-   10. RESPONSIVIDADE (Mobile & Tablets)
+   10. FICHA (Atributos & Perícias)
+   =================================================== */
+.atributo .valor {
+  border: 2px solid var(--color-dourado);
+  border-radius: 5px;
+}
+
+.atributo .modificador {
+  border: 2px solid var(--color-dourado);
+  border-radius: 5px;
+  background-color: var(--color-grafite);
+}
+
+.atributo .salvaguarda-f {
+  border: 2px solid var(--color-dourado);
+  border-radius: 5px;
+  background-color: var(--color-grafite);
+}
+
+.atributo .salvaguarda-t {
+  border: 2px solid var(--color-dourado);
+  border-radius: 5px;
+  background-color: var(--color-vermelho);
+}
+
+.separador-coluna {
+  border-right: 1px solid var(--color-dourado);
+}
+
+/* ===================================================
+   11. RESPONSIVIDADE (Mobile & Tablets)
    =================================================== */
 @media (max-width: 992px) {
   .header-area {

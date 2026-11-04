@@ -3,6 +3,8 @@ from flask import render_template, redirect, flash, request, url_for, abort
 from flask_login import current_user, login_required
 from app.forms.login_form import LoginForm
 from app.forms.cadastro_form import CadastroForm
+from app.forms.modals_ficha.modal_perfil_form import ModalPerfilForm
+from app.forms.modals_ficha.modal_atributos_form import ModalAtributosForm
 from app.forms.admin_usuario_form import AdminUsuarioForm
 from app.forms.modal_perfil_form import ModalPerfilForm
 from app.forms.raca_form import RacaForm
@@ -121,10 +123,14 @@ def admin_excluir_raca(raca_id):
 @app.route("/ficha/<id>")
 @login_required
 def ficha_personagem(id):
+    logado = current_user.is_authenticated
     modal_perfil = ModalPerfilForm()
+    modal_atb = ModalAtributosForm()
     return render_template('ficha.html',
+                           logado = logado,
                            nome = 'Rogerinho',
-                           modal_perfil = modal_perfil)
+                           modal_perfil = modal_perfil,
+                           modal_atb = modal_atb)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
