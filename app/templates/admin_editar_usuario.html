@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Editar usuário{% endblock %}
+
+{% block content %}
+<div class="container py-4 py-md-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="login-box">
+                <h1 class="h3 fw-bold mb-4">Editar usuário</h1>
+
+                <form method="post" novalidate>
+                    {{ formulario.hidden_tag() }}
+
+                    <div class="mb-3">
+                        {{ formulario.username.label(class_="form-label") }}
+                        {{ formulario.username(class_="form-control") }}
+                        {% for erro in formulario.username.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ formulario.email.label(class_="form-label") }}
+                        {{ formulario.email(class_="form-control") }}
+                        {% for erro in formulario.email.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        {{ formulario.submit(class_="btn-custom") }}
+                        <a class="btn-custom-inv"
+                           href="{{ url_for('admin') }}">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

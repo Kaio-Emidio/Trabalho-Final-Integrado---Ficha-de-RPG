@@ -169,6 +169,10 @@ section { margin-top: 120px; }
   box-shadow: 0px 0px 10px var(--sombra-preta) !important;
 }
 
+.flash-messages {
+  padding-top: 100px !important;
+}
+
 .header-area .main-nav {
   display: flex;
   padding: 15px 0px;
@@ -326,8 +330,8 @@ button.navbar-toggler {
 }
 
 .btn-custom-inv:hover {
-  background-color: var(--color-dourado);
-  border-color: var(--color-dourado);
+  background-color: var(--color-vermelho);
+  border-color: var(--color-vermelho);
   color: var(--color-branco);
 }
 

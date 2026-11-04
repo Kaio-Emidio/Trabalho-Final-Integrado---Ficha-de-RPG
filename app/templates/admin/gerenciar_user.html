@@ -1,0 +1,47 @@
+
+<section class="admin-management" aria-labelledby="tituloGerenciamento">
+
+    <h2 id="tituloGerenciamento" class="h5 fw-semibold mb-3">
+        Gerenciamento
+    </h2>
+
+    <div class="row g-3">
+
+        <div class="col-12 col-sm-6 col-lg-4">
+
+            <button
+                class="card h-100 w-100 text-start border shadow-sm admin-card"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#modalUsuarios"
+                aria-controls="modalUsuarios">
+
+                <div class="card-body p-4">
+
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <div class="rounded-3 bg-primary-subtle text-primary p-3">
+                            <i class="fa-solid fa-users fs-4"
+                               aria-hidden="true"></i>
+                        </div>
+
+                        <i class="bi bi-arrow-up-right fs-5 text-body-secondary"
+                           aria-hidden="true"></i>
+                    </div>
+
+                    <h3 class="h5 fw-bold">
+                        Gerenciar usuários
+                    </h3>
+
+                    <p class="text-body-secondary small mb-0">
+                        Consulte, edite ou exclua usuários cadastrados no sistema.
+                    </p>
+
+                </div>
+            </button>
+
+        </div>
+    </div>
+
+    {% include 'admin/modals/modal_usuario.html' %}
+
+</section>
