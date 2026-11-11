@@ -604,34 +604,7 @@ ul li {
 }
 
 /* ===================================================
-   8. COMPONENTES EXTRAS DO CYBORG
-   =================================================== */
-.live-stream span i,
-.top-streamers ul li h6 i {
-  color: var(--color-verde);
-  background-color: var(--color-dourado);
-}
-
-.live-stream span { color: var(--color-dourado); }
-
-.top-downloaded ul li .download i,
-.feature-banner .thumb a,
-.clips .item .thumb a {
-  color: var(--color-dourado);
-  background-color: var(--color-grafite);
-}
-
-.top-downloaded .text-button a { color: var(--color-dourado); }
-
-.main-profile {
-  background-color: var(--color-verde);
-  border-radius: 23px;
-  padding: 30px;
-}
-.main-profile ul { background-color: var(--color-grafite); }
-
-/* ===================================================
-   9. RODAPÉ
+   8. RODAPÉ
    =================================================== */
 footer {
   background-color: var(--color-verde);
@@ -656,7 +629,7 @@ footer p a, footer a {
 footer p a:hover, footer a:hover { color: var(--color-vermelho); }
 
 /* ===================================================
-   10. FICHA (Atributos & Perícias)
+   9. FICHA (Atributos & Perícias)
    =================================================== */
 .atributo .valor {
   border: 2px solid var(--color-dourado);
@@ -685,8 +658,12 @@ footer p a:hover, footer a:hover { color: var(--color-vermelho); }
   border-right: 1px solid var(--color-dourado);
 }
 
+.barra_vida_mana {
+  
+}
+
 /* ===================================================
-   11. RESPONSIVIDADE (Mobile & Tablets)
+   10. RESPONSIVIDADE (Mobile & Tablets)
    =================================================== */
 @media (max-width: 992px) {
   .header-area {
