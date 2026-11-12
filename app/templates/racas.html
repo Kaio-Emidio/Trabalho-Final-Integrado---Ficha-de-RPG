@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Enciclopédia de Raças{% endblock %}
+
+{% block content %}
+<div class="container py-4 py-md-5">
+    <div class="login-box">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+                <h1 class="h2 fw-bold mb-1">Enciclopédia de raças</h1>
+                <p class="mb-0">Raças cadastradas no sistema: {{ racas|length }}</p>
+            </div>
+            {% if adm %}
+                <a class="btn-custom" href="{{ url_for('admin_nova_raca') }}">
+                    <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Adicionar raça
+                </a>
+            {% endif %}
+        </div>
+
+        {% if racas %}
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Raça</th>
+                            <th scope="col">Tipo de criatura</th>
+                            <th scope="col">Tamanho</th>
+                            {% if adm %}<th scope="col">Ações</th>{% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for raca in racas %}
+                            <tr>
+                                <th scope="row">{{ raca.nome }}</th>
+                                <td>{{ raca.tipo_criatura }}</td>
+                                <td>{{ raca.tamanho }}</td>
+                                {% if adm %}
+                                    <td class="text-nowrap">
+                                        <a class="btn btn-sm btn-outline-primary"
+                                           href="{{ url_for('admin_editar_raca', raca_id=raca.id) }}">
+                                            Editar
+                                        </a>
+                                        <form class="d-inline"
+                                              method="post"
+                                              action="{{ url_for('admin_excluir_raca', raca_id=raca.id) }}"
+                                              onsubmit="return confirm('Tem certeza que deseja excluir esta raça?');">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button class="btn btn-sm btn-outline-danger" type="submit">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center py-4 mb-0">Nenhuma raça cadastrada.</p>
+        {% endif %}
+
+        <a class="btn-custom-inv d-inline-block mt-3" href="{{ url_for('admin') if adm else url_for('home') }}">
+            Voltar
+        </a>
+    </div>
+</div>
+{% endblock %}

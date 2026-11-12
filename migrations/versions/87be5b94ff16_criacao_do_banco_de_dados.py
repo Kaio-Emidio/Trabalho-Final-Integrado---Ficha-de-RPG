@@ -1,8 +1,8 @@
-"""criando os bancos de dados
+"""criacao do banco de dados
 
-Revision ID: 9913134b2fc5
+Revision ID: 87be5b94ff16
 Revises: 
-Create Date: 2026-10-08 13:59:10.868917
+Create Date: 2026-11-11 18:01:56.514137
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9913134b2fc5'
+revision = '87be5b94ff16'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -76,6 +76,7 @@ def upgrade():
     sa.Column('username', sa.String(length=65), nullable=False),
     sa.Column('password_hash', sa.String(length=256), nullable=True),
     sa.Column('email', sa.String(length=65), nullable=False),
+    sa.Column('role', sa.String(length=16), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     with op.batch_alter_table('usuario', schema=None) as batch_op:
@@ -184,7 +185,7 @@ def upgrade():
     op.create_table('idiomas_e__outros',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('id_personagem', sa.Integer(), nullable=False),
-    sa.Column('tipo_enum', sa.Enum('Idioma', 'Arma', 'Armadura', 'Outro'), nullable=True),
+    sa.Column('tipo', sa.Enum('Idioma', 'Arma', 'Armadura', 'Outro', name='tipo_enum'), nullable=True),
     sa.Column('nome', sa.String(length=65), nullable=True),
     sa.ForeignKeyConstraint(['id_personagem'], ['personagem.id'], ),
     sa.PrimaryKeyConstraint('id')

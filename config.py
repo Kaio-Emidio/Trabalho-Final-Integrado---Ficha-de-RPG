@@ -2,6 +2,9 @@ import secrets
 import os
 from urllib.parse import quote_plus
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
 SQLITE_DATABASE_PATH = BASE_DIR / "instance" / "app.sqlite3"
@@ -19,3 +22,5 @@ class Config:
         SQLALCHEMY_DATABASE_URI = f"sqlite:///{SQLITE_DATABASE_PATH}"
     elif CURRENT_DATABASE == "mysql":
         SQLALCHEMY_DATABASE_URI = f"mysql+mysqlconnector://{DB_USERNAME}:{quote_plus(DB_PASSWORD)}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    elif CURRENT_DATABASE == "postgresql":
+        SQLALCHEMY_DATABASE_URI = f"postgresql://{DB_USERNAME}:{quote_plus(DB_PASSWORD)}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
