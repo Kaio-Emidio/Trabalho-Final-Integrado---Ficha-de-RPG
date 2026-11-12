@@ -9,8 +9,8 @@ class Idiomas_e_Outros(db.Model):
     tipo = db.Column(db.Enum('Idioma',
                              'Arma',
                              'Armadura',
-                             'Outro'),
-                             name='tipo_enum')
+                             'Outro',
+                             name='tipo_enum'))
     nome = db.Column(db.String(65))
 
     personagens = db.relationship('Personagem',
