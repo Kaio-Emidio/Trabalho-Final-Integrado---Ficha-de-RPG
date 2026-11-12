@@ -681,8 +681,13 @@ footer p a:hover, footer a:hover { color: var(--color-vermelho); }
 @media (max-width: 992px) {
   .header-area {
     padding: 0px 15px;
-    height: 80px;
+    height: auto;
+    min-height: 80px;
     text-align: center;
+  }
+  .background-header {
+    height: auto !important;
+    min-height: 70px;
   }
   .header-area .main-nav { border-radius: 0px; }
   .header-area .main-nav .logo {
