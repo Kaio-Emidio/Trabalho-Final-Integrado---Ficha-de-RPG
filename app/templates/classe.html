@@ -1,0 +1,76 @@
+
+{% extends "base.html" %}
+
+{% block title %}Enciclopédia de Classes{% endblock %}
+
+{% block content %}
+<div class="container py-4 py-md-5">
+    <div class="login-box">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+                <h1 class="h2 fw-bold mb-1">Enciclopédia de classes</h1>
+                <p class="mb-0">Classes cadastradas no sistema: {{ classes|length }}</p>
+            </div>
+                
+                <a class="btn-custom" href="{{ url_for('admin_nova_classe') }}">
+                    <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Adicionar classe
+                </a>
+           
+        </div>
+
+        {% if classes %}
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Classe</th>
+                            <th scope="col">Vida Inicial</th>
+                            <th scope="col">Vida por Nível</th>
+                            <th scope="col">Dado de Vida</th>
+                            {% if adm %}<th scope="col">Ações</th>{% endif %}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for classe in classes %}
+                            <tr>
+                                <th scope="row">{{ classe.nome }}</th>
+                                <td>{{ classe.vida_inicial }}</td>
+                                <td>{{ classe.vida_por_nivel }}</td>
+                                <td>{{ classe.dado_de_vida }}</td>
+
+                                {% if adm %}
+                                    <td class="text-nowrap">
+                                        <a class="btn btn-sm btn-outline-primary"
+                                           href="{{ url_for('admin_editar_classe', classe_id=classe.id) }}">
+                                            Editar
+                                        </a>
+
+                                        <form class="d-inline"
+                                              method="post"
+                                              action="{{ url_for('admin_excluir_classe', classe_id=classe.id) }}"
+                                              onsubmit="return confirm('Tem certeza que deseja excluir esta classe?');">
+
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                            <button class="btn btn-sm btn-outline-danger" type="submit">
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center py-4 mb-0">Nenhuma classe cadastrada.</p>
+        {% endif %}
+
+        <a class="btn-custom-inv d-inline-block mt-3" href="{{ url_for('wiki') if adm else url_for('home') }}">
+            Voltar
+        </a>
+    </div>
+</div>
+{% endblock %}
