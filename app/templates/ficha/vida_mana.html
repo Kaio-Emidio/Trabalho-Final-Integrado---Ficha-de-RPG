@@ -12,14 +12,25 @@
         </a>
     </div>
 </div>
-<div class="row text-center">
+<div class="row text-center gap-2">
     {% for i in range(2) %}
     <div class="col">
-        <div class="col-sm ml-2 border">
-            <p>1</p>
-        </div>
-        <div class="col-sm-2 border">
-            <p>2</p>
+        <div class="row gap-2">
+            <div class="col barra_vida_mana">
+                <div class="d-flex align-items-center justify-content-around h-75">
+                    <input type="number" class="w-50 border-0 bg-transparent text-white text-center" style="font-size: 25px; font-weight: 200;">
+                    <h4 class="mb-0">/</h4>
+                    <h5 class="mb-0"><span id="vida_max">25</span></h5>
+                </div>
+                <div class="progress" style="height: 5px;">
+                    <div class="progress-bar bg-success" style="width: 50%">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 barra_vida_mana">
+                em progresso
+            </div>
         </div>
     </div>
     {% endfor %}

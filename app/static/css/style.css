@@ -38,7 +38,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   outline: 0;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+}
 
 /* --- Ajuste na barra lateral --- */
 ::-webkit-scrollbar {
@@ -657,7 +660,8 @@ footer p a:hover, footer a:hover { color: var(--color-vermelho); }
 }
 
 .barra_vida_mana {
-  
+  border: 2px solid var(--color-dourado);
+  border-radius: 5px;
 }
 
 /* ===================================================
