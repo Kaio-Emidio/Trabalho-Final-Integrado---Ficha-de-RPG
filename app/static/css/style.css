@@ -648,6 +648,14 @@ footer p a:hover, footer a:hover { color: var(--color-vermelho); }
   border-right: 1px solid var(--color-dourado);
 }
 
+.separador3 {
+  border-right: 1px solid var(--color-dourado);
+}
+
+.separador2 {
+  border-right: 1px solid var(--color-dourado);
+}
+
 .barra_vida_mana {
   
 }
@@ -699,6 +707,10 @@ footer p a:hover, footer a:hover { color: var(--color-vermelho); }
   .rounded-circle {margin-top: 50px;}
   .site-title {display: none;}
   .me-2 {margin: 0;}
+
+  .separador3 {
+    border: none !important;
+  }
 }
 
 @media (max-width: 767px) {
@@ -711,4 +723,10 @@ footer p a:hover, footer a:hover { color: var(--color-vermelho); }
     text-align: center !important;
   }
   .gaming-library .item ul li { margin-top: 30px; }
+  .separador3 {
+    border-right: 1px solid var(--color-dourado) !important;
+  }
+  .separador2 {
+  border-right: none;
+}
 }
