@@ -171,15 +171,15 @@ def cadastrar():
     return render_template("cadastro.html", form=formulario, title="Cadastro de Usuário")
 
 
-@app.route("/admin")
+@app.route("/wiki")
 @login_required
-def admin():
+def wiki():
     if not current_user.is_authenticated or current_user.role != Usuario.ROLES['ADM']:
         abort(403)
     else:
         usuarios = UsuarioService.listar().all()
         racas = Raca.query.order_by(Raca.nome).all()
-        return render_template("admin.html",
+        return render_template("wiki.html",
                                title="Administração",
                                usuarios=usuarios,
                                racas=racas)
@@ -207,7 +207,7 @@ def admin_editar_usuario(usuario_id):
             flash("Não foi possível atualizar o usuário.", "error")
         else:
             flash("Usuário atualizado com sucesso.", "success")
-            return redirect(url_for('admin'))
+            return redirect(url_for('wiki'))
 
     return render_template("admin_editar_usuario.html",
                            title="Editar usuário",
@@ -226,11 +226,11 @@ def admin_excluir_usuario(usuario_id):
         abort(404)
     if usuario.id == current_user.id:
         flash("Você não pode excluir a própria conta de administrador.", "error")
-        return redirect(url_for('admin'))
+        return redirect(url_for('wiki'))
     if usuario.personagens:
         flash("Não é possível excluir este usuário enquanto ele tiver personagens vinculados.",
               "error")
-        return redirect(url_for('admin'))
+        return redirect(url_for('wiki'))
 
     try:
         sucesso = UsuarioService.remover(usuario)
@@ -243,7 +243,7 @@ def admin_excluir_usuario(usuario_id):
             flash("Usuário excluído com sucesso.", "success")
         else:
             flash("Não foi possível excluir o usuário.", "error")
-    return redirect(url_for('admin'))
+    return redirect(url_for('wiki'))
 
 
 @app.route("/admin/usuarios/<int:usuario_id>/promover", methods=["POST"])
@@ -257,7 +257,7 @@ def admin_promover_usuario(usuario_id):
         abort(404)
     if usuario.role != Usuario.ROLES['USER']:
         flash("Este usuário não possui perfil padrão.", "error")
-        return redirect(url_for('admin'))
+        return redirect(url_for('wiki'))
 
     usuario.role = Usuario.ROLES['ADM']
     try:
@@ -268,7 +268,7 @@ def admin_promover_usuario(usuario_id):
         flash("Não foi possível promover o usuário.", "error")
     else:
         flash("Usuário promovido a administrador com sucesso.", "success")
-    return redirect(url_for('admin'))
+    return redirect(url_for('wiki'))
 
 
 @app.route("/admin/usuarios/<int:usuario_id>/rebaixar", methods=["POST"])
@@ -282,13 +282,13 @@ def admin_rebaixar_usuario(usuario_id):
         abort(404)
     if usuario.id == current_user.id:
         flash("Você não pode remover a própria autorização de administrador.", "error")
-        return redirect(url_for('admin'))
+        return redirect(url_for('wiki'))
     if usuario.role != Usuario.ROLES['ADM']:
         flash("Este usuário não possui perfil de administrador.", "error")
-        return redirect(url_for('admin'))
+        return redirect(url_for('wiki'))
     if Usuario.query.filter_by(role=Usuario.ROLES['ADM']).count() <= 1:
         flash("Não é possível rebaixar o último administrador.", "error")
-        return redirect(url_for('admin'))
+        return redirect(url_for('wiki'))
 
     usuario.role = Usuario.ROLES['USER']
     try:
@@ -299,7 +299,7 @@ def admin_rebaixar_usuario(usuario_id):
         flash("Não foi possível remover a autorização de administrador.", "error")
     else:
         flash("Administrador rebaixado a usuário padrão com sucesso.", "success")
-    return redirect(url_for('admin'))
+    return redirect(url_for('wiki'))
 
 @app.errorhandler(403)
 def erro_403(e):
