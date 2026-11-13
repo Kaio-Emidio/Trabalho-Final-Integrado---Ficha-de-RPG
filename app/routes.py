@@ -7,10 +7,12 @@ from app.forms.modals_ficha.modal_perfil_form import ModalPerfilForm
 from app.forms.modals_ficha.modal_atributos_form import ModalAtributosForm
 from app.forms.admin_usuario_form import AdminUsuarioForm
 from app.forms.raca_form import RacaForm
+from app.forms.classe_form import ClasseForm
 from app.services.UsuarioService import UsuarioService
 from app.services.AuthenticationService import AuthenticationService
 from app.models.usuario import Usuario
 from app.models.raca import Raca
+from app.models.classe import Classe
 from sqlalchemy.exc import SQLAlchemyError
 
 @app.route("/")
@@ -30,6 +32,105 @@ def racas():
                            logado = logado,
                            adm=adm,
                            racas=racas)
+
+
+@app.route("/classes")
+def classes():
+    logado = current_user.is_authenticated
+    adm = logado and current_user.role == Usuario.ROLES['ADM']
+
+    classes = Classe.query.order_by(Classe.nome).all()
+
+    return render_template('classe.html',
+                           logado=logado,
+                           adm=adm,
+                           classes=classes)
+
+
+@app.route("/classes/nova", methods=["GET", "POST"])
+def admin_nova_classe():
+    formulario = ClasseForm()
+    if formulario.validate_on_submit():
+        classe = Classe(
+            nome=formulario.nome.data.strip(),
+            vida_inicial=formulario.vida_inicial.data,
+            vida_por_nivel=formulario.vida_por_nivel.data,
+            dado_de_vida=formulario.dado_de_vida.data.strip()
+        )
+        db.session.add(classe)
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao cadastrar classe")
+            flash("Não foi possível cadastrar a classe.", "error")
+        else:
+            flash("Classe cadastrada com sucesso.", "success")
+            return redirect(url_for('classes'))
+
+    return render_template("wiki/classe_form.html",
+                           title="Adicionar classe",
+                           formulario=formulario,
+                           acao="Adicionar classe")
+
+
+@app.route("/admin/classes/<int:classe_id>/editar", methods=["GET", "POST"])
+@login_required
+def admin_editar_classe(classe_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    classe = db.session.get(Classe, classe_id)
+    if classe is None:
+        abort(404)
+
+    formulario = ClasseForm(classe_id=classe.id, obj=classe)
+    if formulario.validate_on_submit():
+        classe.nome = formulario.nome.data.strip()
+        classe.vida_inicial = formulario.vida_inicial.data
+        classe.vida_por_nivel = formulario.vida_por_nivel.data
+        classe.dado_de_vida = formulario.dado_de_vida.data.strip()
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao atualizar classe %s", classe.id)
+            flash("Não foi possível atualizar a classe.", "error")
+        else:
+            flash("Classe atualizada com sucesso.", "success")
+            return redirect(url_for('classes'))
+
+    return render_template("wiki/classe_form.html",
+                           title="Editar classe",
+                           formulario=formulario,
+                           acao="Salvar alterações",
+                           classe=classe)
+
+
+@app.route("/admin/classes/<int:classe_id>/excluir", methods=["POST"])
+@login_required
+def admin_excluir_classe(classe_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    classe = db.session.get(Classe, classe_id)
+    if classe is None:
+        abort(404)
+    if classe.personagens or classe.habilidades:
+        flash("Não é possível excluir uma classe vinculada a personagens ou habilidades.",
+              "error")
+        return redirect(url_for('classes'))
+
+    try:
+        db.session.delete(classe)
+        db.session.commit()
+    except SQLAlchemyError:
+        db.session.rollback()
+        app.logger.exception("Erro ao excluir classe %s", classe.id)
+        flash("Não foi possível excluir a classe.", "error")
+    else:
+        flash("Classe excluída com sucesso.", "success")
+    return redirect(url_for('classes'))
 
 
 @app.route("/admin/racas/nova", methods=["GET", "POST"])
