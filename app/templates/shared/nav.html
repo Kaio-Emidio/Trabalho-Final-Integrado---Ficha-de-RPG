@@ -21,13 +21,12 @@
                         <ul class="navbar-nav ms-auto align-items-lg-center">
                             {% if logado %}
                                 <li class="nav-item"><a href="{{ url_for('home') }}" class="nav-link">Home</a></li>
-                                {% if current_user.role == 'adm' %}
-                                    <li class="nav-item"><a href="{{ url_for('admin') }}" class="nav-link">Admin</a></li>
-                                {% endif %}
                                 <li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
-                                {% if adm %}
-                                    <li class="nav-item"> <a href="{{ url_for('admin') }}" class="nav-link btn-admin">Painel Admin</a></li>
-                                {% endif %}
+                                <!-- *****{% if adm %}
+                                    <li class="nav-item"> <a href="{{ url_for('admin') }}" class="nav-link btn-admin">Wiki</a></li>
+                                {% endif %}***** -->
+                            
+                                <li class="nav-item"> <a href="{{ url_for('admin') }}" class="nav-link btn-admin">Wiki</a></li>
                             {% else %}
                                 <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
                                 <li class="nav-item"><a href="{{ url_for('cadastrar') }}" class="nav-link">Cadastro</a></li>
