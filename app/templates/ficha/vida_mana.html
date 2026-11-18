@@ -18,18 +18,17 @@
         <div class="row gap-2">
             <div class="col barra_vida_mana">
                 <div class="d-flex align-items-center justify-content-around h-75">
-                    <input type="number" class="w-50 border-0 bg-transparent text-white text-center" style="font-size: 25px; font-weight: 200;">
+                    <input id="vida_atual" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-50 border-0 bg-transparent text-white text-center fs-4 p-0">
                     <h4 class="mb-0">/</h4>
                     <h5 class="mb-0"><span id="vida_max">25</span></h5>
                 </div>
                 <div class="progress" style="height: 5px;">
-                    <div class="progress-bar bg-success" style="width: 50%">
-                        
-                    </div>
+                    <div id="barra_vida" class="progress-bar bg-success"></div>
                 </div>
             </div>
             <div class="col-3 barra_vida_mana">
-                em progresso
+                <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-100 border-0 bg-transparent text-white text-center" style="font-size: 25px; font-weight: 200;">
+
             </div>
         </div>
     </div>
@@ -38,3 +37,27 @@
 <div class="row">
     <h5>Dados de Vida</h5>
 </div>
+
+<script>
+    // Seleciona os elementos da tela pelos IDs
+    const vidaAtual = document.getElementById('vida_atual');
+    const spanMaximo = document.getElementById('vida_max');
+    const barra = document.getElementById('barra_vida');
+
+    // Cria um "escutador" que roda toda vez que algo for digitado no vida
+    vidaAtual.addEventListener('input', () => {
+        // 1. Pega os textos, converte para número (Number) 
+        let atual = Number(vidaAtual.value);
+        let maximo = Number(spanMaximo.innerText);
+
+        // 2. Calcula a porcentagem (Regra de 3 básica)
+        let porcentagem = (atual / maximo) * 100;
+
+        // 3. Trava o limite (Impede que a barra passe da caixa se o jogador ganhar vida temporária além do máximo, ou fique negativa)
+        if (porcentagem > 100) porcentagem = 100;
+        if (porcentagem < 0) porcentagem = 0;
+
+        // 4. Aplica o resultado no estilo CSS da barra
+        barra.style.width = porcentagem + '%';
+    });
+</script>
