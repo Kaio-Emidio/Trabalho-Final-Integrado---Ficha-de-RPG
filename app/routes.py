@@ -13,6 +13,7 @@ from app.services.AuthenticationService import AuthenticationService
 from app.models.usuario import Usuario
 from app.models.raca import Raca
 from app.models.classe import Classe
+from app.models.hab_classe import HabClasse
 from sqlalchemy.exc import SQLAlchemyError
 
 @app.route("/")
@@ -132,6 +133,25 @@ def admin_excluir_classe(classe_id):
         flash("Classe excluída com sucesso.", "success")
     return redirect(url_for('classes'))
 
+@app.route("/wiki/habilidades-classe")
+@login_required
+def hab_classe():
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    habilidades = (
+        HabClasse.query
+        .join(Classe)
+        .order_by(Classe.nome, HabClasse.nivel, HabClasse.nome)
+        .all()
+    )
+
+    return render_template(
+        "hab_classe.html",
+        title="Habilidades de Classe",
+        habilidades=habilidades,
+        adm=True
+    )
 
 @app.route("/admin/racas/nova", methods=["GET", "POST"])
 @login_required
