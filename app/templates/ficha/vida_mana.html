@@ -13,7 +13,6 @@
     </div>
 </div>
 <div class="row text-center gap-2">
-    {% for i in range(2) %}
     <div class="col">
         <div class="row gap-2">
             <div class="col barra_vida_mana">
@@ -28,11 +27,26 @@
             </div>
             <div class="col-3 barra_vida_mana">
                 <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-100 border-0 bg-transparent text-white text-center" style="font-size: 25px; font-weight: 200;">
-
             </div>
         </div>
     </div>
-    {% endfor %}
+    <div class="col">
+        <div class="row gap-2">
+            <div class="col barra_vida_mana">
+                <div class="d-flex align-items-center justify-content-around h-75">
+                    <input id="mana_atual" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-50 border-0 bg-transparent text-white text-center fs-4 p-0">
+                    <h4 class="mb-0">/</h4>
+                    <h5 class="mb-0"><span id="mana_max">25</span></h5>
+                </div>
+                <div class="progress" style="height: 5px;">
+                    <div id="barra_mana" class="progress-bar bg-primary"></div>
+                </div>
+            </div>
+            <div class="col-3 barra_vida_mana">
+                <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-100 border-0 bg-transparent text-white text-center" style="font-size: 25px; font-weight: 200;">
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row">
     <h5>Dados de Vida</h5>
@@ -41,14 +55,14 @@
 <script>
     // Seleciona os elementos da tela pelos IDs
     const vidaAtual = document.getElementById('vida_atual');
-    const spanMaximo = document.getElementById('vida_max');
-    const barra = document.getElementById('barra_vida');
+    const spanVidaMaxima = document.getElementById('vida_max');
+    const barra_vida = document.getElementById('barra_vida');
 
     // Cria um "escutador" que roda toda vez que algo for digitado no vida
-    vidaAtual.addEventListener('input', () => {
+    vidaAtual.addEventListener('blur', () => {
         // 1. Pega os textos, converte para número (Number) 
         let atual = Number(vidaAtual.value);
-        let maximo = Number(spanMaximo.innerText);
+        let maximo = Number(spanVidaMaxima.innerText);
 
         // 2. Calcula a porcentagem (Regra de 3 básica)
         let porcentagem = (atual / maximo) * 100;
@@ -58,6 +72,36 @@
         if (porcentagem < 0) porcentagem = 0;
 
         // 4. Aplica o resultado no estilo CSS da barra
-        barra.style.width = porcentagem + '%';
+        barra_vida.style.width = porcentagem + '%';
+    });
+
+    const manaAtual = document.getElementById('mana_atual');
+    const spanManaMaxima = document.getElementById('mana_max');
+    const barra_mana = document.getElementById('barra_mana');
+
+    manaAtual.addEventListener('blur', () => {
+        let atual = Number(manaAtual.value);
+        let maximo = Number(spanManaMaxima.innerText);
+
+        let porcentagem = (atual / maximo) * 100;
+
+        if (porcentagem > 100) porcentagem = 100;
+        if (porcentagem < 0) porcentagem = 0;
+
+        barra_mana.style.width = porcentagem + '%';
+    });
+
+    vidaAtual.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Evita enviar formulários ou quebrar linha
+        vidaAtual.blur(); // Desseleciona o campo
+    }
+    });
+    
+    manaAtual.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Evita enviar formulários ou quebrar linha
+        manaAtual.blur(); // Desseleciona o campo
+    }
     });
 </script>
