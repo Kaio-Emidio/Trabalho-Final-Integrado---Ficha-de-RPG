@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container py-4 py-md-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <div class="login-box">
+                <h1 class="h3 fw-bold mb-4">{{ title }}</h1>
+
+                <form method="post" novalidate>
+                    {{ formulario.hidden_tag() }}
+
+                    <div class="mb-3">
+                        {{ formulario.nome.label(class_="form-label") }}
+                        {{ formulario.nome(class_="form-control") }}
+                        {% for erro in formulario.nome.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ formulario.vida_inicial.label(class_="form-label") }}
+                        {{ formulario.vida_inicial(class_="form-control") }}
+                        {% for erro in formulario.vida_inicial.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ formulario.vida_por_nivel.label(class_="form-label") }}
+                        {{ formulario.vida_por_nivel(class_="form-control") }}
+                        {% for erro in formulario.vida_por_nivel.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ formulario.dado_de_vida.label(class_="form-label") }}
+                        {{ formulario.dado_de_vida(class_="form-control") }}
+                        {% for erro in formulario.dado_de_vida.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        {{ formulario.submit(class_="btn-custom", value=acao) }}
+                        <a class="btn-custom-inv" href="{{ url_for('racas') }}">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
