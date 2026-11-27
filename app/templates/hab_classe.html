@@ -1,58 +1,60 @@
-
 {% extends "base.html" %}
 
-{% block title %}Enciclopédia de Classes{% endblock %}
+{% block title %}Habilidades de Classes{% endblock %}
 
 {% block content %}
 <div class="container py-4 py-md-5">
     <div class="login-box">
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
             <div>
-                <h1 class="h2 fw-bold mb-1">Enciclopédia de classes</h1>
-                <p class="mb-0">Classes cadastradas no sistema: {{ classes|length }}</p>
+                <h1 class="h2 fw-bold mb-1">Habilidades de classes</h1>
+                <p class="mb-0">Habilidades cadastradas no sistema: {{ habilidades|length }}</p>
             </div>
-                
-                <a class="btn-custom" href="{{ url_for('admin_nova_classe') }}">
-                    <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Adicionar classe
+
+            {% if adm %}
+                <a class="btn-custom" href="{{ url_for('admin_nova_hab_classe') }}">
+                    <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Adicionar habilidade
                 </a>
-           
+            {% endif %}
         </div>
 
-        {% if classes %}
+        {% if habilidades %}
             <div class="table-responsive">
                 <table class="table table-striped align-middle">
                     <thead>
                         <tr>
-                            <th scope="col">Habilidade da Classe</th>
-                            <th scope="col">Nome</th>
+                            <th scope="col">Classe</th>
+                            <th scope="col">Habilidade</th>
                             <th scope="col">Nível</th>
                             <th scope="col">Descrição</th>
-                            {% if adm %}<th scope="col">Ações</th>{% endif %}
+                            {% if adm %}
+                                <th scope="col" class="text-center" style="width: 120px;">Ações</th>
+                            {% endif %}
                         </tr>
                     </thead>
 
                     <tbody>
-                        {% for classe in classes %}
+                        {% for habilidade in habilidades %}
                             <tr>
-                                <th scope="row">{{ hab_classe.nome }}</th>
-                                <td>{{ hab_classe.nivel }}</td>
-                                <td>{{ hab_classe.descricao }}</td>
-
+                                <td>{{ habilidade.classe.nome }}</td>
+                                <th scope="row">{{ habilidade.nome }}</th>
+                                <td>{{ habilidade.nivel }}</td>
+                                <td>{{ habilidade.descricao }}</td>
                                 {% if adm %}
-                                    <td class="text-nowrap">
-                                        <a class="btn btn-sm btn-outline-primary"
-                                           href="{{ url_for('admin_editar_classe', classe_id=classe.id) }}">
+                                    <td class="text-center">
+                                        <a href="{{ url_for('admin_editar_hab_classe', habilidade_id=habilidade.id) }}"
+                                           class="btn-custom-inv btn-sm"
+                                           title="Editar habilidade">
+                                            <i class="fa-solid fa-pencil" aria-hidden="true"></i>
                                             Editar
                                         </a>
-
                                         <form class="d-inline"
                                               method="post"
-                                              action="{{ url_for('admin_excluir_classe', classe_id=classe.id) }}"
-                                              onsubmit="return confirm('Tem certeza que deseja excluir esta classe?');">
-
+                                              action="{{ url_for('admin_excluir_hab_classe', habilidade_id=habilidade.id) }}"
+                                              onsubmit="return confirm('Tem certeza que deseja excluir esta habilidade?');">
                                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-                                            <button class="btn btn-sm btn-outline-danger" type="submit">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir habilidade">
+                                                <i class="fa-solid fa-trash" aria-hidden="true"></i>
                                                 Excluir
                                             </button>
                                         </form>
@@ -64,7 +66,7 @@
                 </table>
             </div>
         {% else %}
-            <p class="text-center py-4 mb-0">Nenhuma classe cadastrada.</p>
+            <p class="text-center py-4 mb-0">Nenhuma habilidade de classe cadastrada.</p>
         {% endif %}
 
         <a class="btn-custom-inv d-inline-block mt-3" href="{{ url_for('wiki') if adm else url_for('home') }}">

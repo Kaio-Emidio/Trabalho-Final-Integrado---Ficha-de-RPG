@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Habilidades de Raças{% endblock %}
+
+{% block content %}
+<div class="container py-4 py-md-5">
+    <div class="login-box">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div>
+                <h1 class="h2 fw-bold mb-1">Habilidades de Raças</h1>
+                <p class="mb-0">Habilidades cadastradas no sistema: {{ habilidades|length }}</p>
+            </div>
+
+            {% if adm %}
+                <a class="btn-custom" href="{{ url_for('admin_nova_hab_raca') }}">
+                    <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Adicionar habilidade
+                </a>
+            {% endif %}
+        </div>
+
+        {% if habilidades %}
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Raça</th>
+                            <th scope="col">Habilidade</th>
+                            <th scope="col">Raça</th>
+                            <th scope="col">Descrição</th>
+                            {% if adm %}
+                                <th scope="col" class="text-center" style="width: 120px;">Ações</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for habilidade in habilidades %}
+                            <tr>
+                                <td>{{ habilidade.raca.nome }}</td>
+                                <th scope="row">{{ habilidade.nome }}</th>
+                                <td>{{ habilidade.raca }}</td>
+                                <td>{{ habilidade.descricao }}</td>
+                                {% if adm %}
+                                    <td class="text-center">
+                                        <a href="{{ url_for('admin_editar_hab_raca', habilidade_id=habilidade.id) }}"
+                                           class="btn-custom-inv btn-sm"
+                                           title="Editar habilidade">
+                                            <i class="fa-solid fa-pencil" aria-hidden="true"></i>
+                                            Editar
+                                        </a>
+                                        <form class="d-inline"
+                                              method="post"
+                                              action="{{ url_for('admin_excluir_hab_raca', habilidade_id=habilidade.id) }}"
+                                              onsubmit="return confirm('Tem certeza que deseja excluir esta habilidade?');">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir habilidade">
+                                                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center py-4 mb-0">Nenhuma habilidade de classe cadastrada.</p>
+        {% endif %}
+
+        <a class="btn-custom-inv d-inline-block mt-3" href="{{ url_for('wiki') if adm else url_for('home') }}">
+            Voltar
+        </a>
+    </div>
+</div>
+{% endblock %}
