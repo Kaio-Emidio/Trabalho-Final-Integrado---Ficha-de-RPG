@@ -10,6 +10,12 @@
                 <h1 class="h2 fw-bold mb-1">Habilidades de classes</h1>
                 <p class="mb-0">Habilidades cadastradas no sistema: {{ habilidades|length }}</p>
             </div>
+
+            {% if adm %}
+                <a class="btn-custom" href="{{ url_for('admin_nova_hab_classe') }}">
+                    <i class="fa-solid fa-plus me-2" aria-hidden="true"></i>Adicionar habilidade
+                </a>
+            {% endif %}
         </div>
 
         {% if habilidades %}
@@ -21,6 +27,9 @@
                             <th scope="col">Habilidade</th>
                             <th scope="col">Nível</th>
                             <th scope="col">Descrição</th>
+                            {% if adm %}
+                                <th scope="col" class="text-center" style="width: 120px;">Ações</th>
+                            {% endif %}
                         </tr>
                     </thead>
 
@@ -31,6 +40,26 @@
                                 <th scope="row">{{ habilidade.nome }}</th>
                                 <td>{{ habilidade.nivel }}</td>
                                 <td>{{ habilidade.descricao }}</td>
+                                {% if adm %}
+                                    <td class="text-center">
+                                        <a href="{{ url_for('admin_editar_hab_classe', habilidade_id=habilidade.id) }}"
+                                           class="btn-custom-inv btn-sm"
+                                           title="Editar habilidade">
+                                            <i class="fa-solid fa-pencil" aria-hidden="true"></i>
+                                            Editar
+                                        </a>
+                                        <form class="d-inline"
+                                              method="post"
+                                              action="{{ url_for('admin_excluir_hab_classe', habilidade_id=habilidade.id) }}"
+                                              onsubmit="return confirm('Tem certeza que deseja excluir esta habilidade?');">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir habilidade">
+                                                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -13,6 +13,14 @@
                     {{ formulario.hidden_tag() }}
 
                     <div class="mb-3">
+                        {{ formulario.id_classe.label(class_="form-label") }}
+                        {{ formulario.id_classe(class_="form-select") }}
+                        {% for erro in formulario.id_classe.errors %}
+                            <div class="text-danger">{{ erro }}</div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
                         {{ formulario.nome.label(class_="form-label") }}
                         {{ formulario.nome(class_="form-control") }}
                         {% for erro in formulario.nome.errors %}
