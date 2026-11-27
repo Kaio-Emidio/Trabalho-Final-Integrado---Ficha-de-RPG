@@ -9,19 +9,14 @@ from app.forms.modals_ficha.modal_atributos_form import ModalAtributosForm
 from app.forms.admin_usuario_form import AdminUsuarioForm
 from app.forms.raca_form import RacaForm
 from app.forms.classe_form import ClasseForm
-from app.forms.hab_classe_form import HabClasseForm
-from app.forms.hab_raca_form import HabRacaForm
-#Services
+from app.forms.defeito_form import DefeitoForm
 from app.services.UsuarioService import UsuarioService
 from app.services.AuthenticationService import AuthenticationService
 #models
 from app.models.usuario import Usuario
 from app.models.raca import Raca
 from app.models.classe import Classe
-from app.models.hab_classe import HabClasse
-from app.models import HabRaca
-from app.models import Talento
-from app.models import HabDeus
+from app.models.defeito import Defeito
 from sqlalchemy.exc import SQLAlchemyError
 
 @app.route("/")
@@ -266,6 +261,7 @@ def admin_excluir_hab_classe(habilidade_id):
 
     return redirect(url_for('hab_classe'))
 
+
 @app.route("/admin/racas/nova", methods=["GET", "POST"])
 @login_required
 def admin_nova_raca():
@@ -353,6 +349,104 @@ def admin_excluir_raca(raca_id):
         flash("Raça excluída com sucesso.", "success")
     return redirect(url_for('racas'))
 
+
+@app.route("/defeitos")
+def defeitos():
+    logado = current_user.is_authenticated
+    adm = logado and current_user.role == Usuario.ROLES['ADM']
+
+    defeitos = Defeito.query.order_by(Defeito.nome).all()
+
+    return render_template('defeito.html',
+                           logado=logado,
+                           adm=adm,
+                           defeitos=defeitos)
+
+
+@app.route("/defeitos/novo", methods=["GET", "POST"])
+def admin_novo_defeito():
+    formulario = DefeitoForm()
+    if formulario.validate_on_submit():
+        defeito = Defeito(
+            nome=formulario.nome.data.strip(),
+            descricao=formulario.descricao.data,
+            id_personagem=formulario.personagens.data
+        )
+        db.session.add(defeito)
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao cadastrar defeito")
+            flash("Não foi possível cadastrar o defeito.", "error")
+        else:
+            flash("Defeito cadastrado com sucesso.", "success")
+            return redirect(url_for('defeitos'))
+
+    return render_template("wiki/defeito_form.html",
+                           title="Adicionar defeito",
+                           formulario=formulario,
+                           acao="Adicionar defeito")
+
+
+@app.route("/admin/defeitos/<int:defeito_id>/editar", methods=["GET", "POST"])
+@login_required
+def admin_editar_defeito(defeito_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    defeito = db.session.get(Defeito, defeito_id)
+    if defeito is None:
+        abort(404)
+
+    formulario = DefeitoForm(defeito_id=defeito.id, obj=defeito)
+    if formulario.validate_on_submit():
+        defeito.nome = formulario.nome.data.strip()
+        defeito.descricao = formulario.descricao.data
+        defeito.id_personagem = formulario.personagens.data
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao atualizar defeito %s", defeito.id)
+            flash("Não foi possível atualizar a defeito.", "error")
+        else:
+            flash("Defeito atualizado com sucesso.", "success")
+            return redirect(url_for('defeitos'))
+
+    return render_template("wiki/defeito_form.html",
+                           title="Editar defeito",
+                           formulario=formulario,
+                           acao="Salvar alterações",
+                           defeito=defeito)
+
+
+@app.route("/admin/defeitos/<int:defeito_id>/excluir", methods=["POST"])
+@login_required
+def admin_excluir_defeito(defeito_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    defeito = db.session.get(Defeito, defeito_id)
+    if defeito is None:
+        abort(404)
+    if defeito.personagens:
+        flash("Não é possível excluir um defeito vinculado a personagens.",
+              "error")
+        return redirect(url_for('defeitos'))
+
+    try:
+        db.session.delete(defeito)
+        db.session.commit()
+    except SQLAlchemyError:
+        db.session.rollback()
+        app.logger.exception("Erro ao excluir defeito %s", defeito.id)
+        flash("Não foi possível excluir o defeito.", "error")
+    else:
+        flash("Defeito excluído com sucesso.", "success")
+    return redirect(url_for('defeitos'))
+
+
 @app.route("/ficha/<id>")
 @login_required
 def ficha_personagem(id):
@@ -364,6 +458,8 @@ def ficha_personagem(id):
                            nome = 'Rogerinho',
                            modal_perfil = modal_perfil,
                            modal_atb = modal_atb)
+
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
