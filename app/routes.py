@@ -1,6 +1,7 @@
 from app import app, db
 from flask import render_template, redirect, flash, request, url_for, abort
 from flask_login import current_user, login_required
+#forms
 from app.forms.login_form import LoginForm
 from app.forms.cadastro_form import CadastroForm
 from app.forms.modals_ficha.modal_perfil_form import ModalPerfilForm
@@ -11,6 +12,7 @@ from app.forms.classe_form import ClasseForm
 from app.forms.defeito_form import DefeitoForm
 from app.services.UsuarioService import UsuarioService
 from app.services.AuthenticationService import AuthenticationService
+#models
 from app.models.usuario import Usuario
 from app.models.raca import Raca
 from app.models.classe import Classe
@@ -134,6 +136,130 @@ def admin_excluir_classe(classe_id):
         flash("Classe excluída com sucesso.", "success")
     return redirect(url_for('classes'))
 
+@app.route("/wiki/habilidades-classe")
+@login_required
+def hab_classe():
+    adm = current_user.role == Usuario.ROLES['ADM']
+    if not adm:
+        abort(403)
+
+    habilidades = (
+        HabClasse.query
+        .join(Classe)
+        .order_by(Classe.nome, HabClasse.nivel, HabClasse.nome)
+        .all()
+    )
+
+    return render_template(
+        "hab_classe.html",
+        title="Habilidades de Classe",
+        habilidades=habilidades,
+        adm=adm
+    )
+
+
+@app.route("/admin/habilidades-classe/nova", methods=["GET", "POST"])
+@login_required
+def admin_nova_hab_classe():
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    formulario = HabClasseForm()
+    formulario.id_classe.choices = [
+        (classe.id, classe.nome)
+        for classe in Classe.query.order_by(Classe.nome).all()
+    ]
+
+    if formulario.validate_on_submit():
+        habilidade = HabClasse(
+            id_classe=formulario.id_classe.data,
+            nome=formulario.nome.data.strip(),
+            nivel=formulario.nivel.data,
+            descricao=formulario.descricao.data.strip()
+        )
+        db.session.add(habilidade)
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao cadastrar habilidade de classe")
+            flash("Não foi possível cadastrar a habilidade.", "error")
+        else:
+            flash("Habilidade cadastrada com sucesso.", "success")
+            return redirect(url_for('hab_classe'))
+
+    return render_template(
+        "wiki/hab_classe_form.html",
+        title="Adicionar habilidade de classe",
+        formulario=formulario,
+        acao="Adicionar habilidade"
+    )
+
+
+@app.route("/admin/habilidades-classe/<int:habilidade_id>/editar", methods=["GET", "POST"])
+@login_required
+def admin_editar_hab_classe(habilidade_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    habilidade = db.session.get(HabClasse, habilidade_id)
+    if habilidade is None:
+        abort(404)
+
+    formulario = HabClasseForm(obj=habilidade)
+    formulario.id_classe.choices = [
+        (classe.id, classe.nome)
+        for classe in Classe.query.order_by(Classe.nome).all()
+    ]
+
+    if request.method == "GET":
+        formulario.id_classe.data = habilidade.id_classe
+
+    if formulario.validate_on_submit():
+        habilidade.id_classe = formulario.id_classe.data
+        habilidade.nome = formulario.nome.data.strip()
+        habilidade.nivel = formulario.nivel.data
+        habilidade.descricao = formulario.descricao.data.strip()
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao atualizar habilidade de classe %s", habilidade.id)
+            flash("Não foi possível atualizar a habilidade.", "error")
+        else:
+            flash("Habilidade atualizada com sucesso.", "success")
+            return redirect(url_for('hab_classe'))
+
+    return render_template(
+        "wiki/hab_classe_form.html",
+        title="Editar habilidade de classe",
+        formulario=formulario,
+        acao="Salvar alterações",
+        habilidade=habilidade
+    )
+
+
+@app.route("/admin/habilidades-classe/<int:habilidade_id>/excluir", methods=["POST"])
+@login_required
+def admin_excluir_hab_classe(habilidade_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    habilidade = db.session.get(HabClasse, habilidade_id)
+    if habilidade is None:
+        abort(404)
+
+    try:
+        db.session.delete(habilidade)
+        db.session.commit()
+    except SQLAlchemyError:
+        db.session.rollback()
+        app.logger.exception("Erro ao excluir habilidade de classe %s", habilidade.id)
+        flash("Não foi possível excluir a habilidade.", "error")
+    else:
+        flash("Habilidade excluída com sucesso.", "success")
+
+    return redirect(url_for('hab_classe'))
 
 
 @app.route("/admin/racas/nova", methods=["GET", "POST"])
@@ -350,6 +476,130 @@ def login():
         flash("Não foi possível efetuar o login. Verifique os dados informados.", "error")
     return render_template('login.html', title='Login', form=formulario)
 
+@app.route("/wiki/habilidades-raca")
+@login_required
+def hab_raca():
+    adm = current_user.role == Usuario.ROLES['ADM']
+    if not adm:
+        abort(403)
+
+    habilidades = (
+        HabRaca.query
+        .join(Raca)
+        .order_by(Raca.nome, HabRaca.raca, HabRaca.nome, HabRaca.descricao)
+        .all()
+    )
+
+    return render_template(
+        "hab_raca.html",
+        title="Habilidades de Raça",
+        habilidades=habilidades,
+        adm=adm
+    )
+
+
+@app.route("/admin/habilidades-raca/nova", methods=["GET", "POST"])
+@login_required
+def admin_nova_hab_raca():
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    formulario = HabRacaForm()
+    formulario.id_raca.choices = [
+        (raca.id, raca.nome)
+        for raca in Raca.query.order_by(Raca.nome).all()
+    ]
+
+    if formulario.validate_on_submit():
+        habilidade = HabRaca(
+            id_raca=formulario.id_raca.data,
+            nome=formulario.nome.data.strip(),
+            raca=formulario.raca.data,
+            descricao=formulario.descricao.data.strip()
+        )
+        db.session.add(habilidade)
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao cadastrar habilidade de raça")
+            flash("Não foi possível cadastrar a habilidade.", "error")
+        else:
+            flash("Habilidade cadastrada com sucesso.", "success")
+            return redirect(url_for('hab_raca'))
+
+    return render_template(
+        "wiki/hab_raca_form.html",
+        title="Adicionar habilidade de raça",
+        formulario=formulario,
+        acao="Adicionar habilidade"
+    )
+
+
+@app.route("/admin/habilidades-raca/<int:habilidade_id>/editar", methods=["GET", "POST"])
+@login_required
+def admin_editar_hab_raca(habilidade_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    habilidade = db.session.get(HabRaca, habilidade_id)
+    if habilidade is None:
+        abort(404)
+
+    formulario = HabRacaForm(obj=habilidade)
+    formulario.id_raca.choices = [
+        (raca.id, raca.nome)
+        for raca in Raca.query.order_by(Raca.nome).all()
+    ]
+
+    if request.method == "GET":
+        formulario.id_raca.data = habilidade.id_raca
+
+    if formulario.validate_on_submit():
+        habilidade.id_raca = formulario.id_raca.data
+        habilidade.nome = formulario.nome.data.strip()
+        habilidade.raca = formulario.raca.data
+        habilidade.descricao = formulario.descricao.data.strip()
+        try:
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            app.logger.exception("Erro ao atualizar habilidade de raça %s", habilidade.id)
+            flash("Não foi possível atualizar a habilidade.", "error")
+        else:
+            flash("Habilidade atualizada com sucesso.", "success")
+            return redirect(url_for('hab_raca'))
+
+    return render_template(
+        "wiki/hab_raca_form.html",
+        title="Editar habilidade de raça",
+        formulario=formulario,
+        acao="Salvar alterações",
+        habilidade=habilidade
+    )
+
+
+@app.route("/admin/habilidades-raca/<int:habilidade_id>/excluir", methods=["POST"])
+@login_required
+def admin_excluir_hab_raca(habilidade_id):
+    if current_user.role != Usuario.ROLES['ADM']:
+        abort(403)
+
+    habilidade = db.session.get(HabRaca, habilidade_id)
+    if habilidade is None:
+        abort(404)
+
+    try:
+        db.session.delete(habilidade)
+        db.session.commit()
+    except SQLAlchemyError:
+        db.session.rollback()
+        app.logger.exception("Erro ao excluir habilidade de raça %s", habilidade.id)
+        flash("Não foi possível excluir a habilidade.", "error")
+    else:
+        flash("Habilidade excluída com sucesso.", "success")
+
+    return redirect(url_for('hab_raca'))
 
 @app.route('/logout')
 @login_required
